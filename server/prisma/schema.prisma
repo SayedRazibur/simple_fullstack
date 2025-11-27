@@ -1,0 +1,344 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum UserStatus {
+  ACTIVE
+  BLOCKED
+  DELETED
+}
+
+enum Day {
+  MON
+  TUE
+  WED
+  THU
+  FRI
+  SAT
+  SUN
+}
+
+// <=======================< User >==========================>
+
+model User {
+  id           String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  email        String  @unique @db.VarChar(255)
+  password     String  @db.VarChar(255)
+  adminCode    String  @map("admin_code") @db.VarChar(255)
+  refreshToken String? @map("refresh_token") @db.Text
+
+  // Password Reset
+  resetToken        String?   @map("reset_token") @db.Text
+  resetTokenExpires DateTime? @map("reset_token_expires") @db.Timestamptz
+
+  // Email Verification
+  isVerified          Boolean   @default(false) @map("is_verified")
+  verificationToken   String?   @map("verification_token") @db.Text
+  verificationExpires DateTime? @map("verification_expires") @db.Timestamptz
+
+  // Status & Meta
+  status      UserStatus @default(ACTIVE)
+  isDeleted   Boolean    @default(false) @map("is_deleted")
+  createdAt   DateTime   @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt   DateTime   @updatedAt @map("updated_at") @db.Timestamptz
+  lastLoginAt DateTime?  @map("last_login_at") @db.Timestamptz
+
+  @@map("users")
+}
+
+// <=======================< Client >==========================>
+
+model Client {
+  id        Int      @id @default(autoincrement())
+  firstName String   @map("first_name") @db.VarChar(250)
+  surname   String?  @db.VarChar(250)
+  address   String?  @db.VarChar(400)
+  email     String?  @db.VarChar(255)
+  phone     String?  @db.VarChar(250)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
+
+  // Relations
+  orders Order[]
+
+  @@map("clients")
+}
+
+// <=======================< Supplier >==========================>
+
+model Supplier {
+  id            Int      @id @default(autoincrement())
+  name          String   @db.VarChar(255)
+  email         String?  @db.VarChar(255)
+  phone         String?  @db.VarChar(50)
+  contactMethod String?  @map("contact_method") @db.VarChar(100)
+  createdAt     DateTime @default(now()) @map("created_at") @db.Timestamptz
+
+  // Relations
+  batches  ProductBatch[]
+  purchase Purchase[]
+
+  @@map("suppliers")
+}
+
+// <=======================< Reminder >==========================>
+
+model Reminder {
+  id        Int      @id @default(autoincrement())
+  title     String   @db.VarChar(300)
+  comment   String?  @db.Text
+  date      DateTime @db.Timestamptz
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
+
+  // Relations
+  entities  Entity[]
+  documents Document[]
+
+  @@map("reminders")
+}
+
+// <=======================< Document >==========================>
+
+model Document {
+  id         Int      @id @default(autoincrement())
+  title      String   @db.VarChar(255)
+  importedOn DateTime @default(now()) @map("imported_on") @db.Timestamptz
+  links      String[] @db.Text
+
+  // Relations
+  reminders Reminder[]
+  orders    Order[]
+  products  Product[]
+  tasks     Task[]
+
+  @@map("documents")
+}
+
+// <=========================< Order >===========================>
+
+model Order {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
+  date      DateTime @db.Timestamptz
+  comment   String?  @db.Text
+  bill      Boolean  @default(false)
+
+  // FK fields
+  clientId    Int @map("client_id")
+  orderTypeId Int @map("order_type_id")
+  pickupId    Int @map("pickup_id")
+
+  // Relations (FK)
+  client    Client    @relation(fields: [clientId], references: [id])
+  orderType OrderType @relation(fields: [orderTypeId], references: [id])
+  pickup    Pickup    @relation(fields: [pickupId], references: [id])
+
+  // Relation
+  items     OrderItem[]
+  services  Service[]
+  documents Document[]
+  tasks     Task[]
+
+  @@map("orders")
+}
+
+// <========================< Order -> OrderItem >========================>
+
+model OrderItem {
+  id       Int   @id @default(autoincrement())
+  quantity Float
+
+  // FK
+  orderId   Int @map("order_id")
+  productId Int @map("product_id")
+
+  // Relations
+  order   Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id])
+
+  @@map("order_items")
+}
+
+// <========================< Product >========================>
+
+model Product {
+  id               Int      @id @default(autoincrement())
+  name             String   @db.VarChar(255)
+  productType      String   @map("product_type") @db.VarChar(255)
+  criticalQuantity Float    @map("critical_quantity")
+  plu              Int      @unique
+  restock          Boolean  @default(false)
+  createdAt        DateTime @default(now()) @map("created_at") @db.Timestamptz
+
+  // FK
+  departmentId Int @map("department_id")
+
+  // Relations
+  document   Document[]
+  batches    ProductBatch[]
+  orderItems OrderItem[]
+  items      PurchaseItem[]
+  tasks      Task[]
+
+  // Relations (FK)
+  department Department @relation(fields: [departmentId], references: [id])
+
+  @@map("products")
+}
+
+// <=====================< Product -> Batch >======================>
+
+model ProductBatch {
+  id           Int      @id @default(autoincrement())
+  quantity     Float
+  dlc          DateTime @db.Timestamptz
+  deliveryTemp Float    @map("delivery_temp")
+  createdAt    DateTime @default(now()) @map("created_at") @db.Timestamptz
+
+  // FK
+  productId  Int @map("product_id")
+  unitId     Int @map("unit_id")
+  supplierId Int @map("supplier_id")
+
+  // Relations
+  product  Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  unit     Unit     @relation(fields: [unitId], references: [id])
+  supplier Supplier @relation(fields: [supplierId], references: [id])
+
+  @@map("product_batches")
+}
+
+// <=====================< Purchase >======================>
+
+model Purchase {
+  id   Int      @id @default(autoincrement())
+  date DateTime @db.Timestamptz
+
+  // FK
+  pickupId   Int @map("pickup_id")
+  supplierId Int @map("supplier_id")
+
+  // Relations
+  pickup   Pickup         @relation(fields: [pickupId], references: [id])
+  supplier Supplier       @relation(fields: [supplierId], references: [id])
+  items    PurchaseItem[]
+
+  @@map("purchases")
+}
+
+// <=====================< Purchase -> PurchaseItem >======================>
+
+model PurchaseItem {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
+  quantity  Float
+
+  // FK
+  purchaseId Int @map("purchase_id")
+  productId  Int @map("product_id")
+
+  // Relations
+  purchase Purchase @relation(fields: [purchaseId], references: [id], onDelete: Cascade)
+  product  Product  @relation(fields: [productId], references: [id])
+
+  @@map("purchase_items")
+}
+
+model Task {
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamptz
+  title     String    @db.VarChar(300)
+  date      DateTime? @db.Timestamptz
+  day       Day?
+  comment   String?   @db.Text
+  quantity  Float
+
+  // FK
+  productId  Int? @map("product_id")
+  orderId    Int? @map("order_id")
+  entityId   Int? @map("entity_id")
+  documentId Int? @map("document_id")
+
+  // Relations
+  product  Product?  @relation(fields: [productId], references: [id])
+  order    Order?    @relation(fields: [orderId], references: [id])
+  entity   Entity?   @relation(fields: [entityId], references: [id])
+  document Document? @relation(fields: [documentId], references: [id])
+
+  @@map("tasks")
+}
+
+// <=======================< Reference Models >==========================>
+
+model Department {
+  id   Int    @id @default(autoincrement())
+  name String @db.VarChar(255)
+
+  // Relations
+  products Product[]
+
+  @@map("departments")
+}
+
+model Entity {
+  id   Int    @id @default(autoincrement())
+  name String @db.VarChar(255)
+
+  // Relations
+  reminders Reminder[]
+  tasks     Task[]
+
+  @@map("entities")
+}
+
+model Unit {
+  id       Int    @id @default(autoincrement())
+  unitType String @map("unit_type") @db.VarChar(255)
+
+  // Relations
+  productBatches ProductBatch[]
+
+  @@map("units")
+}
+
+model OrderType {
+  id        Int    @id @default(autoincrement())
+  orderType String @map("order_type") @db.VarChar(255)
+
+  // Relations
+  orders Order[]
+
+  @@map("order_types")
+}
+
+model Service {
+  id          Int    @id @default(autoincrement())
+  serviceType String @map("service_type") @db.VarChar(255)
+
+  // Relations
+  orders Order[]
+
+  @@map("services")
+}
+
+model Pickup {
+  id     Int    @id @default(autoincrement())
+  pickup String @db.VarChar(255)
+
+  // Relations
+  orders   Order[]
+  purchase Purchase[]
+
+  @@map("pickups")
+}
+
+model Recurrence {
+  id             Int    @id @default(autoincrement())
+  recurrenceType String @map("recurrence_type") @db.VarChar(255)
+
+  @@map("recurrences")
+}
