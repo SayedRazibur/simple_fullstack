@@ -100,6 +100,26 @@ export type PurchaseItem = Prisma.PurchaseItemModel
  */
 export type Task = Prisma.TaskModel
 /**
+ * Model Site
+ * 
+ */
+export type Site = Prisma.SiteModel
+/**
+ * Model Refill
+ * 
+ */
+export type Refill = Prisma.RefillModel
+/**
+ * Model OpenProduct
+ * 
+ */
+export type OpenProduct = Prisma.OpenProductModel
+/**
+ * Model OpenProductItem
+ * 
+ */
+export type OpenProductItem = Prisma.OpenProductItemModel
+/**
  * Model Department
  * 
  */

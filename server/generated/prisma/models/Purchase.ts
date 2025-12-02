@@ -41,6 +41,7 @@ export type PurchaseSumAggregateOutputType = {
 export type PurchaseMinAggregateOutputType = {
   id: number | null
   date: Date | null
+  day: $Enums.Day | null
   pickupId: number | null
   supplierId: number | null
 }
@@ -48,6 +49,7 @@ export type PurchaseMinAggregateOutputType = {
 export type PurchaseMaxAggregateOutputType = {
   id: number | null
   date: Date | null
+  day: $Enums.Day | null
   pickupId: number | null
   supplierId: number | null
 }
@@ -55,6 +57,7 @@ export type PurchaseMaxAggregateOutputType = {
 export type PurchaseCountAggregateOutputType = {
   id: number
   date: number
+  day: number
   pickupId: number
   supplierId: number
   _all: number
@@ -76,6 +79,7 @@ export type PurchaseSumAggregateInputType = {
 export type PurchaseMinAggregateInputType = {
   id?: true
   date?: true
+  day?: true
   pickupId?: true
   supplierId?: true
 }
@@ -83,6 +87,7 @@ export type PurchaseMinAggregateInputType = {
 export type PurchaseMaxAggregateInputType = {
   id?: true
   date?: true
+  day?: true
   pickupId?: true
   supplierId?: true
 }
@@ -90,6 +95,7 @@ export type PurchaseMaxAggregateInputType = {
 export type PurchaseCountAggregateInputType = {
   id?: true
   date?: true
+  day?: true
   pickupId?: true
   supplierId?: true
   _all?: true
@@ -183,7 +189,8 @@ export type PurchaseGroupByArgs<ExtArgs extends runtime.Types.Extensions.Interna
 
 export type PurchaseGroupByOutputType = {
   id: number
-  date: Date
+  date: Date | null
+  day: $Enums.Day | null
   pickupId: number
   supplierId: number
   _count: PurchaseCountAggregateOutputType | null
@@ -213,7 +220,8 @@ export type PurchaseWhereInput = {
   OR?: Prisma.PurchaseWhereInput[]
   NOT?: Prisma.PurchaseWhereInput | Prisma.PurchaseWhereInput[]
   id?: Prisma.IntFilter<"Purchase"> | number
-  date?: Prisma.DateTimeFilter<"Purchase"> | Date | string
+  date?: Prisma.DateTimeNullableFilter<"Purchase"> | Date | string | null
+  day?: Prisma.EnumDayNullableFilter<"Purchase"> | $Enums.Day | null
   pickupId?: Prisma.IntFilter<"Purchase"> | number
   supplierId?: Prisma.IntFilter<"Purchase"> | number
   pickup?: Prisma.XOR<Prisma.PickupScalarRelationFilter, Prisma.PickupWhereInput>
@@ -223,7 +231,8 @@ export type PurchaseWhereInput = {
 
 export type PurchaseOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  date?: Prisma.SortOrder
+  date?: Prisma.SortOrderInput | Prisma.SortOrder
+  day?: Prisma.SortOrderInput | Prisma.SortOrder
   pickupId?: Prisma.SortOrder
   supplierId?: Prisma.SortOrder
   pickup?: Prisma.PickupOrderByWithRelationInput
@@ -236,7 +245,8 @@ export type PurchaseWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.PurchaseWhereInput | Prisma.PurchaseWhereInput[]
   OR?: Prisma.PurchaseWhereInput[]
   NOT?: Prisma.PurchaseWhereInput | Prisma.PurchaseWhereInput[]
-  date?: Prisma.DateTimeFilter<"Purchase"> | Date | string
+  date?: Prisma.DateTimeNullableFilter<"Purchase"> | Date | string | null
+  day?: Prisma.EnumDayNullableFilter<"Purchase"> | $Enums.Day | null
   pickupId?: Prisma.IntFilter<"Purchase"> | number
   supplierId?: Prisma.IntFilter<"Purchase"> | number
   pickup?: Prisma.XOR<Prisma.PickupScalarRelationFilter, Prisma.PickupWhereInput>
@@ -246,7 +256,8 @@ export type PurchaseWhereUniqueInput = Prisma.AtLeast<{
 
 export type PurchaseOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  date?: Prisma.SortOrder
+  date?: Prisma.SortOrderInput | Prisma.SortOrder
+  day?: Prisma.SortOrderInput | Prisma.SortOrder
   pickupId?: Prisma.SortOrder
   supplierId?: Prisma.SortOrder
   _count?: Prisma.PurchaseCountOrderByAggregateInput
@@ -261,13 +272,15 @@ export type PurchaseScalarWhereWithAggregatesInput = {
   OR?: Prisma.PurchaseScalarWhereWithAggregatesInput[]
   NOT?: Prisma.PurchaseScalarWhereWithAggregatesInput | Prisma.PurchaseScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"Purchase"> | number
-  date?: Prisma.DateTimeWithAggregatesFilter<"Purchase"> | Date | string
+  date?: Prisma.DateTimeNullableWithAggregatesFilter<"Purchase"> | Date | string | null
+  day?: Prisma.EnumDayNullableWithAggregatesFilter<"Purchase"> | $Enums.Day | null
   pickupId?: Prisma.IntWithAggregatesFilter<"Purchase"> | number
   supplierId?: Prisma.IntWithAggregatesFilter<"Purchase"> | number
 }
 
 export type PurchaseCreateInput = {
-  date: Date | string
+  date?: Date | string | null
+  day?: $Enums.Day | null
   pickup: Prisma.PickupCreateNestedOneWithoutPurchaseInput
   supplier: Prisma.SupplierCreateNestedOneWithoutPurchaseInput
   items?: Prisma.PurchaseItemCreateNestedManyWithoutPurchaseInput
@@ -275,14 +288,16 @@ export type PurchaseCreateInput = {
 
 export type PurchaseUncheckedCreateInput = {
   id?: number
-  date: Date | string
+  date?: Date | string | null
+  day?: $Enums.Day | null
   pickupId: number
   supplierId: number
   items?: Prisma.PurchaseItemUncheckedCreateNestedManyWithoutPurchaseInput
 }
 
 export type PurchaseUpdateInput = {
-  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  day?: Prisma.NullableEnumDayFieldUpdateOperationsInput | $Enums.Day | null
   pickup?: Prisma.PickupUpdateOneRequiredWithoutPurchaseNestedInput
   supplier?: Prisma.SupplierUpdateOneRequiredWithoutPurchaseNestedInput
   items?: Prisma.PurchaseItemUpdateManyWithoutPurchaseNestedInput
@@ -290,7 +305,8 @@ export type PurchaseUpdateInput = {
 
 export type PurchaseUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  day?: Prisma.NullableEnumDayFieldUpdateOperationsInput | $Enums.Day | null
   pickupId?: Prisma.IntFieldUpdateOperationsInput | number
   supplierId?: Prisma.IntFieldUpdateOperationsInput | number
   items?: Prisma.PurchaseItemUncheckedUpdateManyWithoutPurchaseNestedInput
@@ -298,18 +314,21 @@ export type PurchaseUncheckedUpdateInput = {
 
 export type PurchaseCreateManyInput = {
   id?: number
-  date: Date | string
+  date?: Date | string | null
+  day?: $Enums.Day | null
   pickupId: number
   supplierId: number
 }
 
 export type PurchaseUpdateManyMutationInput = {
-  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  day?: Prisma.NullableEnumDayFieldUpdateOperationsInput | $Enums.Day | null
 }
 
 export type PurchaseUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  day?: Prisma.NullableEnumDayFieldUpdateOperationsInput | $Enums.Day | null
   pickupId?: Prisma.IntFieldUpdateOperationsInput | number
   supplierId?: Prisma.IntFieldUpdateOperationsInput | number
 }
@@ -327,6 +346,7 @@ export type PurchaseOrderByRelationAggregateInput = {
 export type PurchaseCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   date?: Prisma.SortOrder
+  day?: Prisma.SortOrder
   pickupId?: Prisma.SortOrder
   supplierId?: Prisma.SortOrder
 }
@@ -340,6 +360,7 @@ export type PurchaseAvgOrderByAggregateInput = {
 export type PurchaseMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   date?: Prisma.SortOrder
+  day?: Prisma.SortOrder
   pickupId?: Prisma.SortOrder
   supplierId?: Prisma.SortOrder
 }
@@ -347,6 +368,7 @@ export type PurchaseMaxOrderByAggregateInput = {
 export type PurchaseMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   date?: Prisma.SortOrder
+  day?: Prisma.SortOrder
   pickupId?: Prisma.SortOrder
   supplierId?: Prisma.SortOrder
 }
@@ -402,6 +424,10 @@ export type PurchaseUncheckedUpdateManyWithoutSupplierNestedInput = {
   update?: Prisma.PurchaseUpdateWithWhereUniqueWithoutSupplierInput | Prisma.PurchaseUpdateWithWhereUniqueWithoutSupplierInput[]
   updateMany?: Prisma.PurchaseUpdateManyWithWhereWithoutSupplierInput | Prisma.PurchaseUpdateManyWithWhereWithoutSupplierInput[]
   deleteMany?: Prisma.PurchaseScalarWhereInput | Prisma.PurchaseScalarWhereInput[]
+}
+
+export type NullableEnumDayFieldUpdateOperationsInput = {
+  set?: $Enums.Day | null
 }
 
 export type PurchaseCreateNestedOneWithoutItemsInput = {
@@ -461,14 +487,16 @@ export type PurchaseUncheckedUpdateManyWithoutPickupNestedInput = {
 }
 
 export type PurchaseCreateWithoutSupplierInput = {
-  date: Date | string
+  date?: Date | string | null
+  day?: $Enums.Day | null
   pickup: Prisma.PickupCreateNestedOneWithoutPurchaseInput
   items?: Prisma.PurchaseItemCreateNestedManyWithoutPurchaseInput
 }
 
 export type PurchaseUncheckedCreateWithoutSupplierInput = {
   id?: number
-  date: Date | string
+  date?: Date | string | null
+  day?: $Enums.Day | null
   pickupId: number
   items?: Prisma.PurchaseItemUncheckedCreateNestedManyWithoutPurchaseInput
 }
@@ -504,20 +532,23 @@ export type PurchaseScalarWhereInput = {
   OR?: Prisma.PurchaseScalarWhereInput[]
   NOT?: Prisma.PurchaseScalarWhereInput | Prisma.PurchaseScalarWhereInput[]
   id?: Prisma.IntFilter<"Purchase"> | number
-  date?: Prisma.DateTimeFilter<"Purchase"> | Date | string
+  date?: Prisma.DateTimeNullableFilter<"Purchase"> | Date | string | null
+  day?: Prisma.EnumDayNullableFilter<"Purchase"> | $Enums.Day | null
   pickupId?: Prisma.IntFilter<"Purchase"> | number
   supplierId?: Prisma.IntFilter<"Purchase"> | number
 }
 
 export type PurchaseCreateWithoutItemsInput = {
-  date: Date | string
+  date?: Date | string | null
+  day?: $Enums.Day | null
   pickup: Prisma.PickupCreateNestedOneWithoutPurchaseInput
   supplier: Prisma.SupplierCreateNestedOneWithoutPurchaseInput
 }
 
 export type PurchaseUncheckedCreateWithoutItemsInput = {
   id?: number
-  date: Date | string
+  date?: Date | string | null
+  day?: $Enums.Day | null
   pickupId: number
   supplierId: number
 }
@@ -539,27 +570,31 @@ export type PurchaseUpdateToOneWithWhereWithoutItemsInput = {
 }
 
 export type PurchaseUpdateWithoutItemsInput = {
-  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  day?: Prisma.NullableEnumDayFieldUpdateOperationsInput | $Enums.Day | null
   pickup?: Prisma.PickupUpdateOneRequiredWithoutPurchaseNestedInput
   supplier?: Prisma.SupplierUpdateOneRequiredWithoutPurchaseNestedInput
 }
 
 export type PurchaseUncheckedUpdateWithoutItemsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  day?: Prisma.NullableEnumDayFieldUpdateOperationsInput | $Enums.Day | null
   pickupId?: Prisma.IntFieldUpdateOperationsInput | number
   supplierId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type PurchaseCreateWithoutPickupInput = {
-  date: Date | string
+  date?: Date | string | null
+  day?: $Enums.Day | null
   supplier: Prisma.SupplierCreateNestedOneWithoutPurchaseInput
   items?: Prisma.PurchaseItemCreateNestedManyWithoutPurchaseInput
 }
 
 export type PurchaseUncheckedCreateWithoutPickupInput = {
   id?: number
-  date: Date | string
+  date?: Date | string | null
+  day?: $Enums.Day | null
   supplierId: number
   items?: Prisma.PurchaseItemUncheckedCreateNestedManyWithoutPurchaseInput
 }
@@ -592,51 +627,59 @@ export type PurchaseUpdateManyWithWhereWithoutPickupInput = {
 
 export type PurchaseCreateManySupplierInput = {
   id?: number
-  date: Date | string
+  date?: Date | string | null
+  day?: $Enums.Day | null
   pickupId: number
 }
 
 export type PurchaseUpdateWithoutSupplierInput = {
-  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  day?: Prisma.NullableEnumDayFieldUpdateOperationsInput | $Enums.Day | null
   pickup?: Prisma.PickupUpdateOneRequiredWithoutPurchaseNestedInput
   items?: Prisma.PurchaseItemUpdateManyWithoutPurchaseNestedInput
 }
 
 export type PurchaseUncheckedUpdateWithoutSupplierInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  day?: Prisma.NullableEnumDayFieldUpdateOperationsInput | $Enums.Day | null
   pickupId?: Prisma.IntFieldUpdateOperationsInput | number
   items?: Prisma.PurchaseItemUncheckedUpdateManyWithoutPurchaseNestedInput
 }
 
 export type PurchaseUncheckedUpdateManyWithoutSupplierInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  day?: Prisma.NullableEnumDayFieldUpdateOperationsInput | $Enums.Day | null
   pickupId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type PurchaseCreateManyPickupInput = {
   id?: number
-  date: Date | string
+  date?: Date | string | null
+  day?: $Enums.Day | null
   supplierId: number
 }
 
 export type PurchaseUpdateWithoutPickupInput = {
-  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  day?: Prisma.NullableEnumDayFieldUpdateOperationsInput | $Enums.Day | null
   supplier?: Prisma.SupplierUpdateOneRequiredWithoutPurchaseNestedInput
   items?: Prisma.PurchaseItemUpdateManyWithoutPurchaseNestedInput
 }
 
 export type PurchaseUncheckedUpdateWithoutPickupInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  day?: Prisma.NullableEnumDayFieldUpdateOperationsInput | $Enums.Day | null
   supplierId?: Prisma.IntFieldUpdateOperationsInput | number
   items?: Prisma.PurchaseItemUncheckedUpdateManyWithoutPurchaseNestedInput
 }
 
 export type PurchaseUncheckedUpdateManyWithoutPickupInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  day?: Prisma.NullableEnumDayFieldUpdateOperationsInput | $Enums.Day | null
   supplierId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
@@ -674,6 +717,7 @@ export type PurchaseCountOutputTypeCountItemsArgs<ExtArgs extends runtime.Types.
 export type PurchaseSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   date?: boolean
+  day?: boolean
   pickupId?: boolean
   supplierId?: boolean
   pickup?: boolean | Prisma.PickupDefaultArgs<ExtArgs>
@@ -685,6 +729,7 @@ export type PurchaseSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
 export type PurchaseSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   date?: boolean
+  day?: boolean
   pickupId?: boolean
   supplierId?: boolean
   pickup?: boolean | Prisma.PickupDefaultArgs<ExtArgs>
@@ -694,6 +739,7 @@ export type PurchaseSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
 export type PurchaseSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   date?: boolean
+  day?: boolean
   pickupId?: boolean
   supplierId?: boolean
   pickup?: boolean | Prisma.PickupDefaultArgs<ExtArgs>
@@ -703,11 +749,12 @@ export type PurchaseSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
 export type PurchaseSelectScalar = {
   id?: boolean
   date?: boolean
+  day?: boolean
   pickupId?: boolean
   supplierId?: boolean
 }
 
-export type PurchaseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "date" | "pickupId" | "supplierId", ExtArgs["result"]["purchase"]>
+export type PurchaseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "date" | "day" | "pickupId" | "supplierId", ExtArgs["result"]["purchase"]>
 export type PurchaseInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   pickup?: boolean | Prisma.PickupDefaultArgs<ExtArgs>
   supplier?: boolean | Prisma.SupplierDefaultArgs<ExtArgs>
@@ -732,7 +779,8 @@ export type $PurchasePayload<ExtArgs extends runtime.Types.Extensions.InternalAr
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
-    date: Date
+    date: Date | null
+    day: $Enums.Day | null
     pickupId: number
     supplierId: number
   }, ExtArgs["result"]["purchase"]>
@@ -1163,6 +1211,7 @@ export interface Prisma__PurchaseClient<T, Null = never, ExtArgs extends runtime
 export interface PurchaseFieldRefs {
   readonly id: Prisma.FieldRef<"Purchase", 'Int'>
   readonly date: Prisma.FieldRef<"Purchase", 'DateTime'>
+  readonly day: Prisma.FieldRef<"Purchase", 'Day'>
   readonly pickupId: Prisma.FieldRef<"Purchase", 'Int'>
   readonly supplierId: Prisma.FieldRef<"Purchase", 'Int'>
 }

@@ -63,6 +63,10 @@ export const ModelName = {
   Purchase: 'Purchase',
   PurchaseItem: 'PurchaseItem',
   Task: 'Task',
+  Site: 'Site',
+  Refill: 'Refill',
+  OpenProduct: 'OpenProduct',
+  OpenProductItem: 'OpenProductItem',
   Department: 'Department',
   Entity: 'Entity',
   Unit: 'Unit',
@@ -210,6 +214,7 @@ export type ProductBatchScalarFieldEnum = (typeof ProductBatchScalarFieldEnum)[k
 export const PurchaseScalarFieldEnum = {
   id: 'id',
   date: 'date',
+  day: 'day',
   pickupId: 'pickupId',
   supplierId: 'supplierId'
 } as const
@@ -233,6 +238,7 @@ export const TaskScalarFieldEnum = {
   createdAt: 'createdAt',
   title: 'title',
   date: 'date',
+  day: 'day',
   comment: 'comment',
   quantity: 'quantity',
   productId: 'productId',
@@ -242,6 +248,45 @@ export const TaskScalarFieldEnum = {
 } as const
 
 export type TaskScalarFieldEnum = (typeof TaskScalarFieldEnum)[keyof typeof TaskScalarFieldEnum]
+
+
+export const SiteScalarFieldEnum = {
+  id: 'id',
+  siteName: 'siteName',
+  day: 'day',
+  supervisor: 'supervisor'
+} as const
+
+export type SiteScalarFieldEnum = (typeof SiteScalarFieldEnum)[keyof typeof SiteScalarFieldEnum]
+
+
+export const RefillScalarFieldEnum = {
+  id: 'id',
+  siteId: 'siteId',
+  productId: 'productId',
+  quantity: 'quantity'
+} as const
+
+export type RefillScalarFieldEnum = (typeof RefillScalarFieldEnum)[keyof typeof RefillScalarFieldEnum]
+
+
+export const OpenProductScalarFieldEnum = {
+  id: 'id',
+  siteId: 'siteId',
+  documentId: 'documentId',
+  createdAt: 'createdAt'
+} as const
+
+export type OpenProductScalarFieldEnum = (typeof OpenProductScalarFieldEnum)[keyof typeof OpenProductScalarFieldEnum]
+
+
+export const OpenProductItemScalarFieldEnum = {
+  id: 'id',
+  productId: 'productId',
+  openProductId: 'openProductId'
+} as const
+
+export type OpenProductItemScalarFieldEnum = (typeof OpenProductItemScalarFieldEnum)[keyof typeof OpenProductItemScalarFieldEnum]
 
 
 export const DepartmentScalarFieldEnum = {

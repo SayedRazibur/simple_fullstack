@@ -49,6 +49,7 @@ export type TaskMinAggregateOutputType = {
   createdAt: Date | null
   title: string | null
   date: Date | null
+  day: $Enums.Day | null
   comment: string | null
   quantity: number | null
   productId: number | null
@@ -62,6 +63,7 @@ export type TaskMaxAggregateOutputType = {
   createdAt: Date | null
   title: string | null
   date: Date | null
+  day: $Enums.Day | null
   comment: string | null
   quantity: number | null
   productId: number | null
@@ -75,6 +77,7 @@ export type TaskCountAggregateOutputType = {
   createdAt: number
   title: number
   date: number
+  day: number
   comment: number
   quantity: number
   productId: number
@@ -108,6 +111,7 @@ export type TaskMinAggregateInputType = {
   createdAt?: true
   title?: true
   date?: true
+  day?: true
   comment?: true
   quantity?: true
   productId?: true
@@ -121,6 +125,7 @@ export type TaskMaxAggregateInputType = {
   createdAt?: true
   title?: true
   date?: true
+  day?: true
   comment?: true
   quantity?: true
   productId?: true
@@ -134,6 +139,7 @@ export type TaskCountAggregateInputType = {
   createdAt?: true
   title?: true
   date?: true
+  day?: true
   comment?: true
   quantity?: true
   productId?: true
@@ -233,7 +239,8 @@ export type TaskGroupByOutputType = {
   id: number
   createdAt: Date
   title: string
-  date: Date
+  date: Date | null
+  day: $Enums.Day | null
   comment: string | null
   quantity: number
   productId: number | null
@@ -269,7 +276,8 @@ export type TaskWhereInput = {
   id?: Prisma.IntFilter<"Task"> | number
   createdAt?: Prisma.DateTimeFilter<"Task"> | Date | string
   title?: Prisma.StringFilter<"Task"> | string
-  date?: Prisma.DateTimeFilter<"Task"> | Date | string
+  date?: Prisma.DateTimeNullableFilter<"Task"> | Date | string | null
+  day?: Prisma.EnumDayNullableFilter<"Task"> | $Enums.Day | null
   comment?: Prisma.StringNullableFilter<"Task"> | string | null
   quantity?: Prisma.FloatFilter<"Task"> | number
   productId?: Prisma.IntNullableFilter<"Task"> | number | null
@@ -286,7 +294,8 @@ export type TaskOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   title?: Prisma.SortOrder
-  date?: Prisma.SortOrder
+  date?: Prisma.SortOrderInput | Prisma.SortOrder
+  day?: Prisma.SortOrderInput | Prisma.SortOrder
   comment?: Prisma.SortOrderInput | Prisma.SortOrder
   quantity?: Prisma.SortOrder
   productId?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -306,7 +315,8 @@ export type TaskWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.TaskWhereInput | Prisma.TaskWhereInput[]
   createdAt?: Prisma.DateTimeFilter<"Task"> | Date | string
   title?: Prisma.StringFilter<"Task"> | string
-  date?: Prisma.DateTimeFilter<"Task"> | Date | string
+  date?: Prisma.DateTimeNullableFilter<"Task"> | Date | string | null
+  day?: Prisma.EnumDayNullableFilter<"Task"> | $Enums.Day | null
   comment?: Prisma.StringNullableFilter<"Task"> | string | null
   quantity?: Prisma.FloatFilter<"Task"> | number
   productId?: Prisma.IntNullableFilter<"Task"> | number | null
@@ -323,7 +333,8 @@ export type TaskOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   title?: Prisma.SortOrder
-  date?: Prisma.SortOrder
+  date?: Prisma.SortOrderInput | Prisma.SortOrder
+  day?: Prisma.SortOrderInput | Prisma.SortOrder
   comment?: Prisma.SortOrderInput | Prisma.SortOrder
   quantity?: Prisma.SortOrder
   productId?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -344,7 +355,8 @@ export type TaskScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"Task"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Task"> | Date | string
   title?: Prisma.StringWithAggregatesFilter<"Task"> | string
-  date?: Prisma.DateTimeWithAggregatesFilter<"Task"> | Date | string
+  date?: Prisma.DateTimeNullableWithAggregatesFilter<"Task"> | Date | string | null
+  day?: Prisma.EnumDayNullableWithAggregatesFilter<"Task"> | $Enums.Day | null
   comment?: Prisma.StringNullableWithAggregatesFilter<"Task"> | string | null
   quantity?: Prisma.FloatWithAggregatesFilter<"Task"> | number
   productId?: Prisma.IntNullableWithAggregatesFilter<"Task"> | number | null
@@ -356,7 +368,8 @@ export type TaskScalarWhereWithAggregatesInput = {
 export type TaskCreateInput = {
   createdAt?: Date | string
   title: string
-  date: Date | string
+  date?: Date | string | null
+  day?: $Enums.Day | null
   comment?: string | null
   quantity: number
   product?: Prisma.ProductCreateNestedOneWithoutTasksInput
@@ -369,7 +382,8 @@ export type TaskUncheckedCreateInput = {
   id?: number
   createdAt?: Date | string
   title: string
-  date: Date | string
+  date?: Date | string | null
+  day?: $Enums.Day | null
   comment?: string | null
   quantity: number
   productId?: number | null
@@ -381,7 +395,8 @@ export type TaskUncheckedCreateInput = {
 export type TaskUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  day?: Prisma.NullableEnumDayFieldUpdateOperationsInput | $Enums.Day | null
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quantity?: Prisma.FloatFieldUpdateOperationsInput | number
   product?: Prisma.ProductUpdateOneWithoutTasksNestedInput
@@ -394,7 +409,8 @@ export type TaskUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  day?: Prisma.NullableEnumDayFieldUpdateOperationsInput | $Enums.Day | null
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quantity?: Prisma.FloatFieldUpdateOperationsInput | number
   productId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -407,7 +423,8 @@ export type TaskCreateManyInput = {
   id?: number
   createdAt?: Date | string
   title: string
-  date: Date | string
+  date?: Date | string | null
+  day?: $Enums.Day | null
   comment?: string | null
   quantity: number
   productId?: number | null
@@ -419,7 +436,8 @@ export type TaskCreateManyInput = {
 export type TaskUpdateManyMutationInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  day?: Prisma.NullableEnumDayFieldUpdateOperationsInput | $Enums.Day | null
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quantity?: Prisma.FloatFieldUpdateOperationsInput | number
 }
@@ -428,7 +446,8 @@ export type TaskUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  day?: Prisma.NullableEnumDayFieldUpdateOperationsInput | $Enums.Day | null
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quantity?: Prisma.FloatFieldUpdateOperationsInput | number
   productId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -452,6 +471,7 @@ export type TaskCountOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   title?: Prisma.SortOrder
   date?: Prisma.SortOrder
+  day?: Prisma.SortOrder
   comment?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
   productId?: Prisma.SortOrder
@@ -474,6 +494,7 @@ export type TaskMaxOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   title?: Prisma.SortOrder
   date?: Prisma.SortOrder
+  day?: Prisma.SortOrder
   comment?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
   productId?: Prisma.SortOrder
@@ -487,6 +508,7 @@ export type TaskMinOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   title?: Prisma.SortOrder
   date?: Prisma.SortOrder
+  day?: Prisma.SortOrder
   comment?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
   productId?: Prisma.SortOrder
@@ -683,7 +705,8 @@ export type TaskUncheckedUpdateManyWithoutEntityNestedInput = {
 export type TaskCreateWithoutDocumentInput = {
   createdAt?: Date | string
   title: string
-  date: Date | string
+  date?: Date | string | null
+  day?: $Enums.Day | null
   comment?: string | null
   quantity: number
   product?: Prisma.ProductCreateNestedOneWithoutTasksInput
@@ -695,7 +718,8 @@ export type TaskUncheckedCreateWithoutDocumentInput = {
   id?: number
   createdAt?: Date | string
   title: string
-  date: Date | string
+  date?: Date | string | null
+  day?: $Enums.Day | null
   comment?: string | null
   quantity: number
   productId?: number | null
@@ -736,7 +760,8 @@ export type TaskScalarWhereInput = {
   id?: Prisma.IntFilter<"Task"> | number
   createdAt?: Prisma.DateTimeFilter<"Task"> | Date | string
   title?: Prisma.StringFilter<"Task"> | string
-  date?: Prisma.DateTimeFilter<"Task"> | Date | string
+  date?: Prisma.DateTimeNullableFilter<"Task"> | Date | string | null
+  day?: Prisma.EnumDayNullableFilter<"Task"> | $Enums.Day | null
   comment?: Prisma.StringNullableFilter<"Task"> | string | null
   quantity?: Prisma.FloatFilter<"Task"> | number
   productId?: Prisma.IntNullableFilter<"Task"> | number | null
@@ -748,7 +773,8 @@ export type TaskScalarWhereInput = {
 export type TaskCreateWithoutOrderInput = {
   createdAt?: Date | string
   title: string
-  date: Date | string
+  date?: Date | string | null
+  day?: $Enums.Day | null
   comment?: string | null
   quantity: number
   product?: Prisma.ProductCreateNestedOneWithoutTasksInput
@@ -760,7 +786,8 @@ export type TaskUncheckedCreateWithoutOrderInput = {
   id?: number
   createdAt?: Date | string
   title: string
-  date: Date | string
+  date?: Date | string | null
+  day?: $Enums.Day | null
   comment?: string | null
   quantity: number
   productId?: number | null
@@ -797,7 +824,8 @@ export type TaskUpdateManyWithWhereWithoutOrderInput = {
 export type TaskCreateWithoutProductInput = {
   createdAt?: Date | string
   title: string
-  date: Date | string
+  date?: Date | string | null
+  day?: $Enums.Day | null
   comment?: string | null
   quantity: number
   order?: Prisma.OrderCreateNestedOneWithoutTasksInput
@@ -809,7 +837,8 @@ export type TaskUncheckedCreateWithoutProductInput = {
   id?: number
   createdAt?: Date | string
   title: string
-  date: Date | string
+  date?: Date | string | null
+  day?: $Enums.Day | null
   comment?: string | null
   quantity: number
   orderId?: number | null
@@ -846,7 +875,8 @@ export type TaskUpdateManyWithWhereWithoutProductInput = {
 export type TaskCreateWithoutEntityInput = {
   createdAt?: Date | string
   title: string
-  date: Date | string
+  date?: Date | string | null
+  day?: $Enums.Day | null
   comment?: string | null
   quantity: number
   product?: Prisma.ProductCreateNestedOneWithoutTasksInput
@@ -858,7 +888,8 @@ export type TaskUncheckedCreateWithoutEntityInput = {
   id?: number
   createdAt?: Date | string
   title: string
-  date: Date | string
+  date?: Date | string | null
+  day?: $Enums.Day | null
   comment?: string | null
   quantity: number
   productId?: number | null
@@ -896,7 +927,8 @@ export type TaskCreateManyDocumentInput = {
   id?: number
   createdAt?: Date | string
   title: string
-  date: Date | string
+  date?: Date | string | null
+  day?: $Enums.Day | null
   comment?: string | null
   quantity: number
   productId?: number | null
@@ -907,7 +939,8 @@ export type TaskCreateManyDocumentInput = {
 export type TaskUpdateWithoutDocumentInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  day?: Prisma.NullableEnumDayFieldUpdateOperationsInput | $Enums.Day | null
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quantity?: Prisma.FloatFieldUpdateOperationsInput | number
   product?: Prisma.ProductUpdateOneWithoutTasksNestedInput
@@ -919,7 +952,8 @@ export type TaskUncheckedUpdateWithoutDocumentInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  day?: Prisma.NullableEnumDayFieldUpdateOperationsInput | $Enums.Day | null
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quantity?: Prisma.FloatFieldUpdateOperationsInput | number
   productId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -931,7 +965,8 @@ export type TaskUncheckedUpdateManyWithoutDocumentInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  day?: Prisma.NullableEnumDayFieldUpdateOperationsInput | $Enums.Day | null
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quantity?: Prisma.FloatFieldUpdateOperationsInput | number
   productId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -943,7 +978,8 @@ export type TaskCreateManyOrderInput = {
   id?: number
   createdAt?: Date | string
   title: string
-  date: Date | string
+  date?: Date | string | null
+  day?: $Enums.Day | null
   comment?: string | null
   quantity: number
   productId?: number | null
@@ -954,7 +990,8 @@ export type TaskCreateManyOrderInput = {
 export type TaskUpdateWithoutOrderInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  day?: Prisma.NullableEnumDayFieldUpdateOperationsInput | $Enums.Day | null
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quantity?: Prisma.FloatFieldUpdateOperationsInput | number
   product?: Prisma.ProductUpdateOneWithoutTasksNestedInput
@@ -966,7 +1003,8 @@ export type TaskUncheckedUpdateWithoutOrderInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  day?: Prisma.NullableEnumDayFieldUpdateOperationsInput | $Enums.Day | null
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quantity?: Prisma.FloatFieldUpdateOperationsInput | number
   productId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -978,7 +1016,8 @@ export type TaskUncheckedUpdateManyWithoutOrderInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  day?: Prisma.NullableEnumDayFieldUpdateOperationsInput | $Enums.Day | null
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quantity?: Prisma.FloatFieldUpdateOperationsInput | number
   productId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -990,7 +1029,8 @@ export type TaskCreateManyProductInput = {
   id?: number
   createdAt?: Date | string
   title: string
-  date: Date | string
+  date?: Date | string | null
+  day?: $Enums.Day | null
   comment?: string | null
   quantity: number
   orderId?: number | null
@@ -1001,7 +1041,8 @@ export type TaskCreateManyProductInput = {
 export type TaskUpdateWithoutProductInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  day?: Prisma.NullableEnumDayFieldUpdateOperationsInput | $Enums.Day | null
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quantity?: Prisma.FloatFieldUpdateOperationsInput | number
   order?: Prisma.OrderUpdateOneWithoutTasksNestedInput
@@ -1013,7 +1054,8 @@ export type TaskUncheckedUpdateWithoutProductInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  day?: Prisma.NullableEnumDayFieldUpdateOperationsInput | $Enums.Day | null
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quantity?: Prisma.FloatFieldUpdateOperationsInput | number
   orderId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1025,7 +1067,8 @@ export type TaskUncheckedUpdateManyWithoutProductInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  day?: Prisma.NullableEnumDayFieldUpdateOperationsInput | $Enums.Day | null
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quantity?: Prisma.FloatFieldUpdateOperationsInput | number
   orderId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1037,7 +1080,8 @@ export type TaskCreateManyEntityInput = {
   id?: number
   createdAt?: Date | string
   title: string
-  date: Date | string
+  date?: Date | string | null
+  day?: $Enums.Day | null
   comment?: string | null
   quantity: number
   productId?: number | null
@@ -1048,7 +1092,8 @@ export type TaskCreateManyEntityInput = {
 export type TaskUpdateWithoutEntityInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  day?: Prisma.NullableEnumDayFieldUpdateOperationsInput | $Enums.Day | null
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quantity?: Prisma.FloatFieldUpdateOperationsInput | number
   product?: Prisma.ProductUpdateOneWithoutTasksNestedInput
@@ -1060,7 +1105,8 @@ export type TaskUncheckedUpdateWithoutEntityInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  day?: Prisma.NullableEnumDayFieldUpdateOperationsInput | $Enums.Day | null
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quantity?: Prisma.FloatFieldUpdateOperationsInput | number
   productId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1072,7 +1118,8 @@ export type TaskUncheckedUpdateManyWithoutEntityInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  day?: Prisma.NullableEnumDayFieldUpdateOperationsInput | $Enums.Day | null
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   quantity?: Prisma.FloatFieldUpdateOperationsInput | number
   productId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1087,6 +1134,7 @@ export type TaskSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   createdAt?: boolean
   title?: boolean
   date?: boolean
+  day?: boolean
   comment?: boolean
   quantity?: boolean
   productId?: boolean
@@ -1104,6 +1152,7 @@ export type TaskSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   createdAt?: boolean
   title?: boolean
   date?: boolean
+  day?: boolean
   comment?: boolean
   quantity?: boolean
   productId?: boolean
@@ -1121,6 +1170,7 @@ export type TaskSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   createdAt?: boolean
   title?: boolean
   date?: boolean
+  day?: boolean
   comment?: boolean
   quantity?: boolean
   productId?: boolean
@@ -1138,6 +1188,7 @@ export type TaskSelectScalar = {
   createdAt?: boolean
   title?: boolean
   date?: boolean
+  day?: boolean
   comment?: boolean
   quantity?: boolean
   productId?: boolean
@@ -1146,7 +1197,7 @@ export type TaskSelectScalar = {
   documentId?: boolean
 }
 
-export type TaskOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "createdAt" | "title" | "date" | "comment" | "quantity" | "productId" | "orderId" | "entityId" | "documentId", ExtArgs["result"]["task"]>
+export type TaskOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "createdAt" | "title" | "date" | "day" | "comment" | "quantity" | "productId" | "orderId" | "entityId" | "documentId", ExtArgs["result"]["task"]>
 export type TaskInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   product?: boolean | Prisma.Task$productArgs<ExtArgs>
   order?: boolean | Prisma.Task$orderArgs<ExtArgs>
@@ -1178,7 +1229,8 @@ export type $TaskPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     id: number
     createdAt: Date
     title: string
-    date: Date
+    date: Date | null
+    day: $Enums.Day | null
     comment: string | null
     quantity: number
     productId: number | null
@@ -1616,6 +1668,7 @@ export interface TaskFieldRefs {
   readonly createdAt: Prisma.FieldRef<"Task", 'DateTime'>
   readonly title: Prisma.FieldRef<"Task", 'String'>
   readonly date: Prisma.FieldRef<"Task", 'DateTime'>
+  readonly day: Prisma.FieldRef<"Task", 'Day'>
   readonly comment: Prisma.FieldRef<"Task", 'String'>
   readonly quantity: Prisma.FieldRef<"Task", 'Float'>
   readonly productId: Prisma.FieldRef<"Task", 'Int'>

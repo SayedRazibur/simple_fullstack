@@ -246,6 +246,23 @@ export type FloatWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedFloatFilter<$PrismaModel>
 }
 
+export type EnumDayNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.Day | Prisma.EnumDayFieldRefInput<$PrismaModel> | null
+  in?: $Enums.Day[] | Prisma.ListEnumDayFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.Day[] | Prisma.ListEnumDayFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumDayNullableFilter<$PrismaModel> | $Enums.Day | null
+}
+
+export type EnumDayNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.Day | Prisma.EnumDayFieldRefInput<$PrismaModel> | null
+  in?: $Enums.Day[] | Prisma.ListEnumDayFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.Day[] | Prisma.ListEnumDayFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumDayNullableWithAggregatesFilter<$PrismaModel> | $Enums.Day | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumDayNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumDayNullableFilter<$PrismaModel>
+}
+
 export type IntNullableFilter<$PrismaModel = never> = {
   equals?: number | Prisma.IntFieldRefInput<$PrismaModel> | null
   in?: number[] | Prisma.ListIntFieldRefInput<$PrismaModel> | null
@@ -271,6 +288,23 @@ export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
   _sum?: Prisma.NestedIntNullableFilter<$PrismaModel>
   _min?: Prisma.NestedIntNullableFilter<$PrismaModel>
   _max?: Prisma.NestedIntNullableFilter<$PrismaModel>
+}
+
+export type EnumDayFilter<$PrismaModel = never> = {
+  equals?: $Enums.Day | Prisma.EnumDayFieldRefInput<$PrismaModel>
+  in?: $Enums.Day[] | Prisma.ListEnumDayFieldRefInput<$PrismaModel>
+  notIn?: $Enums.Day[] | Prisma.ListEnumDayFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDayFilter<$PrismaModel> | $Enums.Day
+}
+
+export type EnumDayWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.Day | Prisma.EnumDayFieldRefInput<$PrismaModel>
+  in?: $Enums.Day[] | Prisma.ListEnumDayFieldRefInput<$PrismaModel>
+  notIn?: $Enums.Day[] | Prisma.ListEnumDayFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDayWithAggregatesFilter<$PrismaModel> | $Enums.Day
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumDayFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumDayFilter<$PrismaModel>
 }
 
 export type NestedUuidFilter<$PrismaModel = never> = {
@@ -505,6 +539,23 @@ export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedFloatFilter<$PrismaModel>
 }
 
+export type NestedEnumDayNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.Day | Prisma.EnumDayFieldRefInput<$PrismaModel> | null
+  in?: $Enums.Day[] | Prisma.ListEnumDayFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.Day[] | Prisma.ListEnumDayFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumDayNullableFilter<$PrismaModel> | $Enums.Day | null
+}
+
+export type NestedEnumDayNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.Day | Prisma.EnumDayFieldRefInput<$PrismaModel> | null
+  in?: $Enums.Day[] | Prisma.ListEnumDayFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.Day[] | Prisma.ListEnumDayFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumDayNullableWithAggregatesFilter<$PrismaModel> | $Enums.Day | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumDayNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumDayNullableFilter<$PrismaModel>
+}
+
 export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
   equals?: number | Prisma.IntFieldRefInput<$PrismaModel> | null
   in?: number[] | Prisma.ListIntFieldRefInput<$PrismaModel> | null
@@ -530,6 +581,23 @@ export type NestedFloatNullableFilter<$PrismaModel = never> = {
   gt?: number | Prisma.FloatFieldRefInput<$PrismaModel>
   gte?: number | Prisma.FloatFieldRefInput<$PrismaModel>
   not?: Prisma.NestedFloatNullableFilter<$PrismaModel> | number | null
+}
+
+export type NestedEnumDayFilter<$PrismaModel = never> = {
+  equals?: $Enums.Day | Prisma.EnumDayFieldRefInput<$PrismaModel>
+  in?: $Enums.Day[] | Prisma.ListEnumDayFieldRefInput<$PrismaModel>
+  notIn?: $Enums.Day[] | Prisma.ListEnumDayFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDayFilter<$PrismaModel> | $Enums.Day
+}
+
+export type NestedEnumDayWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.Day | Prisma.EnumDayFieldRefInput<$PrismaModel>
+  in?: $Enums.Day[] | Prisma.ListEnumDayFieldRefInput<$PrismaModel>
+  notIn?: $Enums.Day[] | Prisma.ListEnumDayFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDayWithAggregatesFilter<$PrismaModel> | $Enums.Day
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumDayFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumDayFilter<$PrismaModel>
 }
 
 

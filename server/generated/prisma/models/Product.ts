@@ -258,6 +258,8 @@ export type ProductWhereInput = {
   items?: Prisma.PurchaseItemListRelationFilter
   tasks?: Prisma.TaskListRelationFilter
   department?: Prisma.XOR<Prisma.DepartmentScalarRelationFilter, Prisma.DepartmentWhereInput>
+  refill?: Prisma.RefillListRelationFilter
+  openProductItems?: Prisma.OpenProductItemListRelationFilter
 }
 
 export type ProductOrderByWithRelationInput = {
@@ -275,6 +277,8 @@ export type ProductOrderByWithRelationInput = {
   items?: Prisma.PurchaseItemOrderByRelationAggregateInput
   tasks?: Prisma.TaskOrderByRelationAggregateInput
   department?: Prisma.DepartmentOrderByWithRelationInput
+  refill?: Prisma.RefillOrderByRelationAggregateInput
+  openProductItems?: Prisma.OpenProductItemOrderByRelationAggregateInput
 }
 
 export type ProductWhereUniqueInput = Prisma.AtLeast<{
@@ -295,6 +299,8 @@ export type ProductWhereUniqueInput = Prisma.AtLeast<{
   items?: Prisma.PurchaseItemListRelationFilter
   tasks?: Prisma.TaskListRelationFilter
   department?: Prisma.XOR<Prisma.DepartmentScalarRelationFilter, Prisma.DepartmentWhereInput>
+  refill?: Prisma.RefillListRelationFilter
+  openProductItems?: Prisma.OpenProductItemListRelationFilter
 }, "id" | "plu">
 
 export type ProductOrderByWithAggregationInput = {
@@ -340,6 +346,8 @@ export type ProductCreateInput = {
   items?: Prisma.PurchaseItemCreateNestedManyWithoutProductInput
   tasks?: Prisma.TaskCreateNestedManyWithoutProductInput
   department: Prisma.DepartmentCreateNestedOneWithoutProductsInput
+  refill?: Prisma.RefillCreateNestedManyWithoutProductInput
+  openProductItems?: Prisma.OpenProductItemCreateNestedManyWithoutProductInput
 }
 
 export type ProductUncheckedCreateInput = {
@@ -356,6 +364,8 @@ export type ProductUncheckedCreateInput = {
   orderItems?: Prisma.OrderItemUncheckedCreateNestedManyWithoutProductInput
   items?: Prisma.PurchaseItemUncheckedCreateNestedManyWithoutProductInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProductInput
+  refill?: Prisma.RefillUncheckedCreateNestedManyWithoutProductInput
+  openProductItems?: Prisma.OpenProductItemUncheckedCreateNestedManyWithoutProductInput
 }
 
 export type ProductUpdateInput = {
@@ -371,6 +381,8 @@ export type ProductUpdateInput = {
   items?: Prisma.PurchaseItemUpdateManyWithoutProductNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutProductNestedInput
   department?: Prisma.DepartmentUpdateOneRequiredWithoutProductsNestedInput
+  refill?: Prisma.RefillUpdateManyWithoutProductNestedInput
+  openProductItems?: Prisma.OpenProductItemUpdateManyWithoutProductNestedInput
 }
 
 export type ProductUncheckedUpdateInput = {
@@ -387,6 +399,8 @@ export type ProductUncheckedUpdateInput = {
   orderItems?: Prisma.OrderItemUncheckedUpdateManyWithoutProductNestedInput
   items?: Prisma.PurchaseItemUncheckedUpdateManyWithoutProductNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProductNestedInput
+  refill?: Prisma.RefillUncheckedUpdateManyWithoutProductNestedInput
+  openProductItems?: Prisma.OpenProductItemUncheckedUpdateManyWithoutProductNestedInput
 }
 
 export type ProductCreateManyInput = {
@@ -583,6 +597,34 @@ export type ProductUpdateOneWithoutTasksNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ProductUpdateToOneWithWhereWithoutTasksInput, Prisma.ProductUpdateWithoutTasksInput>, Prisma.ProductUncheckedUpdateWithoutTasksInput>
 }
 
+export type ProductCreateNestedOneWithoutRefillInput = {
+  create?: Prisma.XOR<Prisma.ProductCreateWithoutRefillInput, Prisma.ProductUncheckedCreateWithoutRefillInput>
+  connectOrCreate?: Prisma.ProductCreateOrConnectWithoutRefillInput
+  connect?: Prisma.ProductWhereUniqueInput
+}
+
+export type ProductUpdateOneRequiredWithoutRefillNestedInput = {
+  create?: Prisma.XOR<Prisma.ProductCreateWithoutRefillInput, Prisma.ProductUncheckedCreateWithoutRefillInput>
+  connectOrCreate?: Prisma.ProductCreateOrConnectWithoutRefillInput
+  upsert?: Prisma.ProductUpsertWithoutRefillInput
+  connect?: Prisma.ProductWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProductUpdateToOneWithWhereWithoutRefillInput, Prisma.ProductUpdateWithoutRefillInput>, Prisma.ProductUncheckedUpdateWithoutRefillInput>
+}
+
+export type ProductCreateNestedOneWithoutOpenProductItemsInput = {
+  create?: Prisma.XOR<Prisma.ProductCreateWithoutOpenProductItemsInput, Prisma.ProductUncheckedCreateWithoutOpenProductItemsInput>
+  connectOrCreate?: Prisma.ProductCreateOrConnectWithoutOpenProductItemsInput
+  connect?: Prisma.ProductWhereUniqueInput
+}
+
+export type ProductUpdateOneRequiredWithoutOpenProductItemsNestedInput = {
+  create?: Prisma.XOR<Prisma.ProductCreateWithoutOpenProductItemsInput, Prisma.ProductUncheckedCreateWithoutOpenProductItemsInput>
+  connectOrCreate?: Prisma.ProductCreateOrConnectWithoutOpenProductItemsInput
+  upsert?: Prisma.ProductUpsertWithoutOpenProductItemsInput
+  connect?: Prisma.ProductWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProductUpdateToOneWithWhereWithoutOpenProductItemsInput, Prisma.ProductUpdateWithoutOpenProductItemsInput>, Prisma.ProductUncheckedUpdateWithoutOpenProductItemsInput>
+}
+
 export type ProductCreateNestedManyWithoutDepartmentInput = {
   create?: Prisma.XOR<Prisma.ProductCreateWithoutDepartmentInput, Prisma.ProductUncheckedCreateWithoutDepartmentInput> | Prisma.ProductCreateWithoutDepartmentInput[] | Prisma.ProductUncheckedCreateWithoutDepartmentInput[]
   connectOrCreate?: Prisma.ProductCreateOrConnectWithoutDepartmentInput | Prisma.ProductCreateOrConnectWithoutDepartmentInput[]
@@ -637,6 +679,8 @@ export type ProductCreateWithoutDocumentInput = {
   items?: Prisma.PurchaseItemCreateNestedManyWithoutProductInput
   tasks?: Prisma.TaskCreateNestedManyWithoutProductInput
   department: Prisma.DepartmentCreateNestedOneWithoutProductsInput
+  refill?: Prisma.RefillCreateNestedManyWithoutProductInput
+  openProductItems?: Prisma.OpenProductItemCreateNestedManyWithoutProductInput
 }
 
 export type ProductUncheckedCreateWithoutDocumentInput = {
@@ -652,6 +696,8 @@ export type ProductUncheckedCreateWithoutDocumentInput = {
   orderItems?: Prisma.OrderItemUncheckedCreateNestedManyWithoutProductInput
   items?: Prisma.PurchaseItemUncheckedCreateNestedManyWithoutProductInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProductInput
+  refill?: Prisma.RefillUncheckedCreateNestedManyWithoutProductInput
+  openProductItems?: Prisma.OpenProductItemUncheckedCreateNestedManyWithoutProductInput
 }
 
 export type ProductCreateOrConnectWithoutDocumentInput = {
@@ -701,6 +747,8 @@ export type ProductCreateWithoutOrderItemsInput = {
   items?: Prisma.PurchaseItemCreateNestedManyWithoutProductInput
   tasks?: Prisma.TaskCreateNestedManyWithoutProductInput
   department: Prisma.DepartmentCreateNestedOneWithoutProductsInput
+  refill?: Prisma.RefillCreateNestedManyWithoutProductInput
+  openProductItems?: Prisma.OpenProductItemCreateNestedManyWithoutProductInput
 }
 
 export type ProductUncheckedCreateWithoutOrderItemsInput = {
@@ -716,6 +764,8 @@ export type ProductUncheckedCreateWithoutOrderItemsInput = {
   batches?: Prisma.ProductBatchUncheckedCreateNestedManyWithoutProductInput
   items?: Prisma.PurchaseItemUncheckedCreateNestedManyWithoutProductInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProductInput
+  refill?: Prisma.RefillUncheckedCreateNestedManyWithoutProductInput
+  openProductItems?: Prisma.OpenProductItemUncheckedCreateNestedManyWithoutProductInput
 }
 
 export type ProductCreateOrConnectWithoutOrderItemsInput = {
@@ -746,6 +796,8 @@ export type ProductUpdateWithoutOrderItemsInput = {
   items?: Prisma.PurchaseItemUpdateManyWithoutProductNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutProductNestedInput
   department?: Prisma.DepartmentUpdateOneRequiredWithoutProductsNestedInput
+  refill?: Prisma.RefillUpdateManyWithoutProductNestedInput
+  openProductItems?: Prisma.OpenProductItemUpdateManyWithoutProductNestedInput
 }
 
 export type ProductUncheckedUpdateWithoutOrderItemsInput = {
@@ -761,6 +813,8 @@ export type ProductUncheckedUpdateWithoutOrderItemsInput = {
   batches?: Prisma.ProductBatchUncheckedUpdateManyWithoutProductNestedInput
   items?: Prisma.PurchaseItemUncheckedUpdateManyWithoutProductNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProductNestedInput
+  refill?: Prisma.RefillUncheckedUpdateManyWithoutProductNestedInput
+  openProductItems?: Prisma.OpenProductItemUncheckedUpdateManyWithoutProductNestedInput
 }
 
 export type ProductCreateWithoutBatchesInput = {
@@ -775,6 +829,8 @@ export type ProductCreateWithoutBatchesInput = {
   items?: Prisma.PurchaseItemCreateNestedManyWithoutProductInput
   tasks?: Prisma.TaskCreateNestedManyWithoutProductInput
   department: Prisma.DepartmentCreateNestedOneWithoutProductsInput
+  refill?: Prisma.RefillCreateNestedManyWithoutProductInput
+  openProductItems?: Prisma.OpenProductItemCreateNestedManyWithoutProductInput
 }
 
 export type ProductUncheckedCreateWithoutBatchesInput = {
@@ -790,6 +846,8 @@ export type ProductUncheckedCreateWithoutBatchesInput = {
   orderItems?: Prisma.OrderItemUncheckedCreateNestedManyWithoutProductInput
   items?: Prisma.PurchaseItemUncheckedCreateNestedManyWithoutProductInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProductInput
+  refill?: Prisma.RefillUncheckedCreateNestedManyWithoutProductInput
+  openProductItems?: Prisma.OpenProductItemUncheckedCreateNestedManyWithoutProductInput
 }
 
 export type ProductCreateOrConnectWithoutBatchesInput = {
@@ -820,6 +878,8 @@ export type ProductUpdateWithoutBatchesInput = {
   items?: Prisma.PurchaseItemUpdateManyWithoutProductNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutProductNestedInput
   department?: Prisma.DepartmentUpdateOneRequiredWithoutProductsNestedInput
+  refill?: Prisma.RefillUpdateManyWithoutProductNestedInput
+  openProductItems?: Prisma.OpenProductItemUpdateManyWithoutProductNestedInput
 }
 
 export type ProductUncheckedUpdateWithoutBatchesInput = {
@@ -835,6 +895,8 @@ export type ProductUncheckedUpdateWithoutBatchesInput = {
   orderItems?: Prisma.OrderItemUncheckedUpdateManyWithoutProductNestedInput
   items?: Prisma.PurchaseItemUncheckedUpdateManyWithoutProductNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProductNestedInput
+  refill?: Prisma.RefillUncheckedUpdateManyWithoutProductNestedInput
+  openProductItems?: Prisma.OpenProductItemUncheckedUpdateManyWithoutProductNestedInput
 }
 
 export type ProductCreateWithoutItemsInput = {
@@ -849,6 +911,8 @@ export type ProductCreateWithoutItemsInput = {
   orderItems?: Prisma.OrderItemCreateNestedManyWithoutProductInput
   tasks?: Prisma.TaskCreateNestedManyWithoutProductInput
   department: Prisma.DepartmentCreateNestedOneWithoutProductsInput
+  refill?: Prisma.RefillCreateNestedManyWithoutProductInput
+  openProductItems?: Prisma.OpenProductItemCreateNestedManyWithoutProductInput
 }
 
 export type ProductUncheckedCreateWithoutItemsInput = {
@@ -864,6 +928,8 @@ export type ProductUncheckedCreateWithoutItemsInput = {
   batches?: Prisma.ProductBatchUncheckedCreateNestedManyWithoutProductInput
   orderItems?: Prisma.OrderItemUncheckedCreateNestedManyWithoutProductInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProductInput
+  refill?: Prisma.RefillUncheckedCreateNestedManyWithoutProductInput
+  openProductItems?: Prisma.OpenProductItemUncheckedCreateNestedManyWithoutProductInput
 }
 
 export type ProductCreateOrConnectWithoutItemsInput = {
@@ -894,6 +960,8 @@ export type ProductUpdateWithoutItemsInput = {
   orderItems?: Prisma.OrderItemUpdateManyWithoutProductNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutProductNestedInput
   department?: Prisma.DepartmentUpdateOneRequiredWithoutProductsNestedInput
+  refill?: Prisma.RefillUpdateManyWithoutProductNestedInput
+  openProductItems?: Prisma.OpenProductItemUpdateManyWithoutProductNestedInput
 }
 
 export type ProductUncheckedUpdateWithoutItemsInput = {
@@ -909,6 +977,8 @@ export type ProductUncheckedUpdateWithoutItemsInput = {
   batches?: Prisma.ProductBatchUncheckedUpdateManyWithoutProductNestedInput
   orderItems?: Prisma.OrderItemUncheckedUpdateManyWithoutProductNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProductNestedInput
+  refill?: Prisma.RefillUncheckedUpdateManyWithoutProductNestedInput
+  openProductItems?: Prisma.OpenProductItemUncheckedUpdateManyWithoutProductNestedInput
 }
 
 export type ProductCreateWithoutTasksInput = {
@@ -923,6 +993,8 @@ export type ProductCreateWithoutTasksInput = {
   orderItems?: Prisma.OrderItemCreateNestedManyWithoutProductInput
   items?: Prisma.PurchaseItemCreateNestedManyWithoutProductInput
   department: Prisma.DepartmentCreateNestedOneWithoutProductsInput
+  refill?: Prisma.RefillCreateNestedManyWithoutProductInput
+  openProductItems?: Prisma.OpenProductItemCreateNestedManyWithoutProductInput
 }
 
 export type ProductUncheckedCreateWithoutTasksInput = {
@@ -938,6 +1010,8 @@ export type ProductUncheckedCreateWithoutTasksInput = {
   batches?: Prisma.ProductBatchUncheckedCreateNestedManyWithoutProductInput
   orderItems?: Prisma.OrderItemUncheckedCreateNestedManyWithoutProductInput
   items?: Prisma.PurchaseItemUncheckedCreateNestedManyWithoutProductInput
+  refill?: Prisma.RefillUncheckedCreateNestedManyWithoutProductInput
+  openProductItems?: Prisma.OpenProductItemUncheckedCreateNestedManyWithoutProductInput
 }
 
 export type ProductCreateOrConnectWithoutTasksInput = {
@@ -968,6 +1042,8 @@ export type ProductUpdateWithoutTasksInput = {
   orderItems?: Prisma.OrderItemUpdateManyWithoutProductNestedInput
   items?: Prisma.PurchaseItemUpdateManyWithoutProductNestedInput
   department?: Prisma.DepartmentUpdateOneRequiredWithoutProductsNestedInput
+  refill?: Prisma.RefillUpdateManyWithoutProductNestedInput
+  openProductItems?: Prisma.OpenProductItemUpdateManyWithoutProductNestedInput
 }
 
 export type ProductUncheckedUpdateWithoutTasksInput = {
@@ -983,6 +1059,172 @@ export type ProductUncheckedUpdateWithoutTasksInput = {
   batches?: Prisma.ProductBatchUncheckedUpdateManyWithoutProductNestedInput
   orderItems?: Prisma.OrderItemUncheckedUpdateManyWithoutProductNestedInput
   items?: Prisma.PurchaseItemUncheckedUpdateManyWithoutProductNestedInput
+  refill?: Prisma.RefillUncheckedUpdateManyWithoutProductNestedInput
+  openProductItems?: Prisma.OpenProductItemUncheckedUpdateManyWithoutProductNestedInput
+}
+
+export type ProductCreateWithoutRefillInput = {
+  name: string
+  productType: string
+  criticalQuantity: number
+  plu: number
+  restock?: boolean
+  createdAt?: Date | string
+  document?: Prisma.DocumentCreateNestedManyWithoutProductsInput
+  batches?: Prisma.ProductBatchCreateNestedManyWithoutProductInput
+  orderItems?: Prisma.OrderItemCreateNestedManyWithoutProductInput
+  items?: Prisma.PurchaseItemCreateNestedManyWithoutProductInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutProductInput
+  department: Prisma.DepartmentCreateNestedOneWithoutProductsInput
+  openProductItems?: Prisma.OpenProductItemCreateNestedManyWithoutProductInput
+}
+
+export type ProductUncheckedCreateWithoutRefillInput = {
+  id?: number
+  name: string
+  productType: string
+  criticalQuantity: number
+  plu: number
+  restock?: boolean
+  createdAt?: Date | string
+  departmentId: number
+  document?: Prisma.DocumentUncheckedCreateNestedManyWithoutProductsInput
+  batches?: Prisma.ProductBatchUncheckedCreateNestedManyWithoutProductInput
+  orderItems?: Prisma.OrderItemUncheckedCreateNestedManyWithoutProductInput
+  items?: Prisma.PurchaseItemUncheckedCreateNestedManyWithoutProductInput
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProductInput
+  openProductItems?: Prisma.OpenProductItemUncheckedCreateNestedManyWithoutProductInput
+}
+
+export type ProductCreateOrConnectWithoutRefillInput = {
+  where: Prisma.ProductWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProductCreateWithoutRefillInput, Prisma.ProductUncheckedCreateWithoutRefillInput>
+}
+
+export type ProductUpsertWithoutRefillInput = {
+  update: Prisma.XOR<Prisma.ProductUpdateWithoutRefillInput, Prisma.ProductUncheckedUpdateWithoutRefillInput>
+  create: Prisma.XOR<Prisma.ProductCreateWithoutRefillInput, Prisma.ProductUncheckedCreateWithoutRefillInput>
+  where?: Prisma.ProductWhereInput
+}
+
+export type ProductUpdateToOneWithWhereWithoutRefillInput = {
+  where?: Prisma.ProductWhereInput
+  data: Prisma.XOR<Prisma.ProductUpdateWithoutRefillInput, Prisma.ProductUncheckedUpdateWithoutRefillInput>
+}
+
+export type ProductUpdateWithoutRefillInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  productType?: Prisma.StringFieldUpdateOperationsInput | string
+  criticalQuantity?: Prisma.FloatFieldUpdateOperationsInput | number
+  plu?: Prisma.IntFieldUpdateOperationsInput | number
+  restock?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  document?: Prisma.DocumentUpdateManyWithoutProductsNestedInput
+  batches?: Prisma.ProductBatchUpdateManyWithoutProductNestedInput
+  orderItems?: Prisma.OrderItemUpdateManyWithoutProductNestedInput
+  items?: Prisma.PurchaseItemUpdateManyWithoutProductNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutProductNestedInput
+  department?: Prisma.DepartmentUpdateOneRequiredWithoutProductsNestedInput
+  openProductItems?: Prisma.OpenProductItemUpdateManyWithoutProductNestedInput
+}
+
+export type ProductUncheckedUpdateWithoutRefillInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  productType?: Prisma.StringFieldUpdateOperationsInput | string
+  criticalQuantity?: Prisma.FloatFieldUpdateOperationsInput | number
+  plu?: Prisma.IntFieldUpdateOperationsInput | number
+  restock?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  departmentId?: Prisma.IntFieldUpdateOperationsInput | number
+  document?: Prisma.DocumentUncheckedUpdateManyWithoutProductsNestedInput
+  batches?: Prisma.ProductBatchUncheckedUpdateManyWithoutProductNestedInput
+  orderItems?: Prisma.OrderItemUncheckedUpdateManyWithoutProductNestedInput
+  items?: Prisma.PurchaseItemUncheckedUpdateManyWithoutProductNestedInput
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutProductNestedInput
+  openProductItems?: Prisma.OpenProductItemUncheckedUpdateManyWithoutProductNestedInput
+}
+
+export type ProductCreateWithoutOpenProductItemsInput = {
+  name: string
+  productType: string
+  criticalQuantity: number
+  plu: number
+  restock?: boolean
+  createdAt?: Date | string
+  document?: Prisma.DocumentCreateNestedManyWithoutProductsInput
+  batches?: Prisma.ProductBatchCreateNestedManyWithoutProductInput
+  orderItems?: Prisma.OrderItemCreateNestedManyWithoutProductInput
+  items?: Prisma.PurchaseItemCreateNestedManyWithoutProductInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutProductInput
+  department: Prisma.DepartmentCreateNestedOneWithoutProductsInput
+  refill?: Prisma.RefillCreateNestedManyWithoutProductInput
+}
+
+export type ProductUncheckedCreateWithoutOpenProductItemsInput = {
+  id?: number
+  name: string
+  productType: string
+  criticalQuantity: number
+  plu: number
+  restock?: boolean
+  createdAt?: Date | string
+  departmentId: number
+  document?: Prisma.DocumentUncheckedCreateNestedManyWithoutProductsInput
+  batches?: Prisma.ProductBatchUncheckedCreateNestedManyWithoutProductInput
+  orderItems?: Prisma.OrderItemUncheckedCreateNestedManyWithoutProductInput
+  items?: Prisma.PurchaseItemUncheckedCreateNestedManyWithoutProductInput
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProductInput
+  refill?: Prisma.RefillUncheckedCreateNestedManyWithoutProductInput
+}
+
+export type ProductCreateOrConnectWithoutOpenProductItemsInput = {
+  where: Prisma.ProductWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProductCreateWithoutOpenProductItemsInput, Prisma.ProductUncheckedCreateWithoutOpenProductItemsInput>
+}
+
+export type ProductUpsertWithoutOpenProductItemsInput = {
+  update: Prisma.XOR<Prisma.ProductUpdateWithoutOpenProductItemsInput, Prisma.ProductUncheckedUpdateWithoutOpenProductItemsInput>
+  create: Prisma.XOR<Prisma.ProductCreateWithoutOpenProductItemsInput, Prisma.ProductUncheckedCreateWithoutOpenProductItemsInput>
+  where?: Prisma.ProductWhereInput
+}
+
+export type ProductUpdateToOneWithWhereWithoutOpenProductItemsInput = {
+  where?: Prisma.ProductWhereInput
+  data: Prisma.XOR<Prisma.ProductUpdateWithoutOpenProductItemsInput, Prisma.ProductUncheckedUpdateWithoutOpenProductItemsInput>
+}
+
+export type ProductUpdateWithoutOpenProductItemsInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  productType?: Prisma.StringFieldUpdateOperationsInput | string
+  criticalQuantity?: Prisma.FloatFieldUpdateOperationsInput | number
+  plu?: Prisma.IntFieldUpdateOperationsInput | number
+  restock?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  document?: Prisma.DocumentUpdateManyWithoutProductsNestedInput
+  batches?: Prisma.ProductBatchUpdateManyWithoutProductNestedInput
+  orderItems?: Prisma.OrderItemUpdateManyWithoutProductNestedInput
+  items?: Prisma.PurchaseItemUpdateManyWithoutProductNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutProductNestedInput
+  department?: Prisma.DepartmentUpdateOneRequiredWithoutProductsNestedInput
+  refill?: Prisma.RefillUpdateManyWithoutProductNestedInput
+}
+
+export type ProductUncheckedUpdateWithoutOpenProductItemsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  productType?: Prisma.StringFieldUpdateOperationsInput | string
+  criticalQuantity?: Prisma.FloatFieldUpdateOperationsInput | number
+  plu?: Prisma.IntFieldUpdateOperationsInput | number
+  restock?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  departmentId?: Prisma.IntFieldUpdateOperationsInput | number
+  document?: Prisma.DocumentUncheckedUpdateManyWithoutProductsNestedInput
+  batches?: Prisma.ProductBatchUncheckedUpdateManyWithoutProductNestedInput
+  orderItems?: Prisma.OrderItemUncheckedUpdateManyWithoutProductNestedInput
+  items?: Prisma.PurchaseItemUncheckedUpdateManyWithoutProductNestedInput
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutProductNestedInput
+  refill?: Prisma.RefillUncheckedUpdateManyWithoutProductNestedInput
 }
 
 export type ProductCreateWithoutDepartmentInput = {
@@ -997,6 +1239,8 @@ export type ProductCreateWithoutDepartmentInput = {
   orderItems?: Prisma.OrderItemCreateNestedManyWithoutProductInput
   items?: Prisma.PurchaseItemCreateNestedManyWithoutProductInput
   tasks?: Prisma.TaskCreateNestedManyWithoutProductInput
+  refill?: Prisma.RefillCreateNestedManyWithoutProductInput
+  openProductItems?: Prisma.OpenProductItemCreateNestedManyWithoutProductInput
 }
 
 export type ProductUncheckedCreateWithoutDepartmentInput = {
@@ -1012,6 +1256,8 @@ export type ProductUncheckedCreateWithoutDepartmentInput = {
   orderItems?: Prisma.OrderItemUncheckedCreateNestedManyWithoutProductInput
   items?: Prisma.PurchaseItemUncheckedCreateNestedManyWithoutProductInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProductInput
+  refill?: Prisma.RefillUncheckedCreateNestedManyWithoutProductInput
+  openProductItems?: Prisma.OpenProductItemUncheckedCreateNestedManyWithoutProductInput
 }
 
 export type ProductCreateOrConnectWithoutDepartmentInput = {
@@ -1052,6 +1298,8 @@ export type ProductUpdateWithoutDocumentInput = {
   items?: Prisma.PurchaseItemUpdateManyWithoutProductNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutProductNestedInput
   department?: Prisma.DepartmentUpdateOneRequiredWithoutProductsNestedInput
+  refill?: Prisma.RefillUpdateManyWithoutProductNestedInput
+  openProductItems?: Prisma.OpenProductItemUpdateManyWithoutProductNestedInput
 }
 
 export type ProductUncheckedUpdateWithoutDocumentInput = {
@@ -1067,6 +1315,8 @@ export type ProductUncheckedUpdateWithoutDocumentInput = {
   orderItems?: Prisma.OrderItemUncheckedUpdateManyWithoutProductNestedInput
   items?: Prisma.PurchaseItemUncheckedUpdateManyWithoutProductNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProductNestedInput
+  refill?: Prisma.RefillUncheckedUpdateManyWithoutProductNestedInput
+  openProductItems?: Prisma.OpenProductItemUncheckedUpdateManyWithoutProductNestedInput
 }
 
 export type ProductUncheckedUpdateManyWithoutDocumentInput = {
@@ -1102,6 +1352,8 @@ export type ProductUpdateWithoutDepartmentInput = {
   orderItems?: Prisma.OrderItemUpdateManyWithoutProductNestedInput
   items?: Prisma.PurchaseItemUpdateManyWithoutProductNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutProductNestedInput
+  refill?: Prisma.RefillUpdateManyWithoutProductNestedInput
+  openProductItems?: Prisma.OpenProductItemUpdateManyWithoutProductNestedInput
 }
 
 export type ProductUncheckedUpdateWithoutDepartmentInput = {
@@ -1117,6 +1369,8 @@ export type ProductUncheckedUpdateWithoutDepartmentInput = {
   orderItems?: Prisma.OrderItemUncheckedUpdateManyWithoutProductNestedInput
   items?: Prisma.PurchaseItemUncheckedUpdateManyWithoutProductNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProductNestedInput
+  refill?: Prisma.RefillUncheckedUpdateManyWithoutProductNestedInput
+  openProductItems?: Prisma.OpenProductItemUncheckedUpdateManyWithoutProductNestedInput
 }
 
 export type ProductUncheckedUpdateManyWithoutDepartmentInput = {
@@ -1140,6 +1394,8 @@ export type ProductCountOutputType = {
   orderItems: number
   items: number
   tasks: number
+  refill: number
+  openProductItems: number
 }
 
 export type ProductCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1148,6 +1404,8 @@ export type ProductCountOutputTypeSelect<ExtArgs extends runtime.Types.Extension
   orderItems?: boolean | ProductCountOutputTypeCountOrderItemsArgs
   items?: boolean | ProductCountOutputTypeCountItemsArgs
   tasks?: boolean | ProductCountOutputTypeCountTasksArgs
+  refill?: boolean | ProductCountOutputTypeCountRefillArgs
+  openProductItems?: boolean | ProductCountOutputTypeCountOpenProductItemsArgs
 }
 
 /**
@@ -1195,6 +1453,20 @@ export type ProductCountOutputTypeCountTasksArgs<ExtArgs extends runtime.Types.E
   where?: Prisma.TaskWhereInput
 }
 
+/**
+ * ProductCountOutputType without action
+ */
+export type ProductCountOutputTypeCountRefillArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RefillWhereInput
+}
+
+/**
+ * ProductCountOutputType without action
+ */
+export type ProductCountOutputTypeCountOpenProductItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.OpenProductItemWhereInput
+}
+
 
 export type ProductSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1211,6 +1483,8 @@ export type ProductSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   items?: boolean | Prisma.Product$itemsArgs<ExtArgs>
   tasks?: boolean | Prisma.Product$tasksArgs<ExtArgs>
   department?: boolean | Prisma.DepartmentDefaultArgs<ExtArgs>
+  refill?: boolean | Prisma.Product$refillArgs<ExtArgs>
+  openProductItems?: boolean | Prisma.Product$openProductItemsArgs<ExtArgs>
   _count?: boolean | Prisma.ProductCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["product"]>
 
@@ -1257,6 +1531,8 @@ export type ProductInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   items?: boolean | Prisma.Product$itemsArgs<ExtArgs>
   tasks?: boolean | Prisma.Product$tasksArgs<ExtArgs>
   department?: boolean | Prisma.DepartmentDefaultArgs<ExtArgs>
+  refill?: boolean | Prisma.Product$refillArgs<ExtArgs>
+  openProductItems?: boolean | Prisma.Product$openProductItemsArgs<ExtArgs>
   _count?: boolean | Prisma.ProductCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ProductIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1275,6 +1551,8 @@ export type $ProductPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     items: Prisma.$PurchaseItemPayload<ExtArgs>[]
     tasks: Prisma.$TaskPayload<ExtArgs>[]
     department: Prisma.$DepartmentPayload<ExtArgs>
+    refill: Prisma.$RefillPayload<ExtArgs>[]
+    openProductItems: Prisma.$OpenProductItemPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1685,6 +1963,8 @@ export interface Prisma__ProductClient<T, Null = never, ExtArgs extends runtime.
   items<T extends Prisma.Product$itemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Product$itemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PurchaseItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   tasks<T extends Prisma.Product$tasksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Product$tasksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   department<T extends Prisma.DepartmentDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DepartmentDefaultArgs<ExtArgs>>): Prisma.Prisma__DepartmentClient<runtime.Types.Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  refill<T extends Prisma.Product$refillArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Product$refillArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RefillPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  openProductItems<T extends Prisma.Product$openProductItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Product$openProductItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OpenProductItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2235,6 +2515,54 @@ export type Product$tasksArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   distinct?: Prisma.TaskScalarFieldEnum | Prisma.TaskScalarFieldEnum[]
+}
+
+/**
+ * Product.refill
+ */
+export type Product$refillArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Refill
+   */
+  select?: Prisma.RefillSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Refill
+   */
+  omit?: Prisma.RefillOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RefillInclude<ExtArgs> | null
+  where?: Prisma.RefillWhereInput
+  orderBy?: Prisma.RefillOrderByWithRelationInput | Prisma.RefillOrderByWithRelationInput[]
+  cursor?: Prisma.RefillWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RefillScalarFieldEnum | Prisma.RefillScalarFieldEnum[]
+}
+
+/**
+ * Product.openProductItems
+ */
+export type Product$openProductItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the OpenProductItem
+   */
+  select?: Prisma.OpenProductItemSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the OpenProductItem
+   */
+  omit?: Prisma.OpenProductItemOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OpenProductItemInclude<ExtArgs> | null
+  where?: Prisma.OpenProductItemWhereInput
+  orderBy?: Prisma.OpenProductItemOrderByWithRelationInput | Prisma.OpenProductItemOrderByWithRelationInput[]
+  cursor?: Prisma.OpenProductItemWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.OpenProductItemScalarFieldEnum | Prisma.OpenProductItemScalarFieldEnum[]
 }
 
 /**
