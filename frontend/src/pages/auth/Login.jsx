@@ -1,8 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate, useLocation } from 'react-router';
+import { useAuthStore } from '@/store/authStore';
 import {
   Card,
   CardContent,
@@ -15,15 +16,21 @@ import { Button } from '../../components/ui/button';
 import { Label } from '../../components/ui/label';
 import { Alert, AlertDescription } from '../../components/ui/alert';
 import { Eye, EyeOff } from 'lucide-react';
-import { useAuthStore } from '../../store/authStore';
+
 import { toast } from 'sonner';
 
 const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { login } = useAuthStore();
+  const { login, isAuthenticated } = useAuthStore();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/dashboard', { replace: true });
+    }
+  }, [isAuthenticated, navigate]);
   const location = useLocation();
 
   const from = location.state?.from?.pathname || '/dashboard';

@@ -9,7 +9,15 @@ import {
   parseISO,
 } from 'date-fns';
 import { toast } from 'sonner';
-import { CalendarDays, List, Minus, Plus, Trash2 } from 'lucide-react';
+import {
+  CalendarDays,
+  ChevronLeft,
+  ChevronRight,
+  List,
+  Minus,
+  Plus,
+  Trash2,
+} from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -482,6 +490,22 @@ export default function ReminderScreen() {
               <h2 className="text-2xl font-semibold">
                 {format(weekStart, 'MMMM d, yyyy')}
               </h2>
+            </div>
+            <div className="flex gap-2">
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => setCursorDate(addDays(weekStart, -3))}
+              >
+                <ChevronLeft className="h-4 w-4" />
+              </Button>
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => setCursorDate(addDays(weekStart, 3))}
+              >
+                <ChevronRight className="h-4 w-4" />
+              </Button>
             </div>
           </div>
 
