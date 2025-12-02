@@ -8,6 +8,10 @@ import supplierRoutes from './operations/supplier.routes.js';
 import productRoutes from './operations/product.routes.js';
 import orderRoutes from './operations/order.routes.js';
 import purchaseRoutes from './operations/purchase.routes.js';
+import taskRoutes from './operations/task.routes.js';
+import siteRoutes from './operations/site.routes.js';
+import refillRoutes from './operations/refill.routes.js';
+import openProductRoutes from './operations/openProduct.routes.js';
 
 export const mountRoutes = (app) => {
   // =========================< Operations Routes >=========================>
@@ -27,6 +31,14 @@ export const mountRoutes = (app) => {
   app.use('/api/v1/document', documentRoutes);
 
   app.use('/api/v1/reminder', reminderRoutes);
+
+  app.use('/api/v1/task', taskRoutes);
+
+  app.use('/api/v1/site', siteRoutes);
+
+  app.use('/api/v1/refill', refillRoutes);
+
+  app.use('/api/v1/open-product', openProductRoutes);
 
   app.use(
     '/api/v1/recurrences',
@@ -49,5 +61,8 @@ export const mountRoutes = (app) => {
 
   app.use('/api/v1/entities', buildCrudRouter('entity', 'Entity', ['name']));
 
-  app.use('/api/v1/departments', buildCrudRouter('department', 'Department', ['name']));
+  app.use(
+    '/api/v1/departments',
+    buildCrudRouter('department', 'Department', ['name'])
+  );
 };
