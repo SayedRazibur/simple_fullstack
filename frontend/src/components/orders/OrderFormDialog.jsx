@@ -272,7 +272,8 @@ export default function OrderFormDialog({
                               key={product.id}
                               value={product.id.toString()}
                             >
-                              {product.name} (PLU: {product.plu})
+                              {product.name} (PLU: {product.plu}) (Unit:{' '}
+                              {product?.batches?.[0]?.unit?.unitType})
                             </SelectItem>
                           ))}
                         </SelectContent>
