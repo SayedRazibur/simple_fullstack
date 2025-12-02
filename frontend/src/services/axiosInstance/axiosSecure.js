@@ -33,8 +33,11 @@ axiosSecure.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
 
-    // Skip refresh logic for login
-    if (originalRequest.url.includes('/auth/login')) {
+    // Skip refresh logic for login or refresh token request itself
+    if (
+      originalRequest.url.includes('/auth/login') ||
+      originalRequest.url.includes('/auth/refresh-token')
+    ) {
       return Promise.reject(error);
     }
 

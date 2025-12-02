@@ -22,6 +22,10 @@ import ReminderScreen from '@/pages/Reminders';
 import SupplierScreen from '@/pages/Suppliers';
 import ProductScreen from '@/pages/Products';
 import OrderScreen from '@/pages/Orders';
+import TasksScreen from '@/pages/Tasks';
+import PurchaseScreen from '@/pages/Purchases';
+import SitesScreen from '@/pages/Sites';
+import OpenProductsScreen from '@/pages/OpenProducts';
 
 // Define router
 const router = createBrowserRouter([
@@ -52,7 +56,11 @@ const router = createBrowserRouter([
       { path: 'suppliers', Component: SupplierScreen },
       { path: 'products', Component: ProductScreen },
       { path: 'orders', Component: OrderScreen },
+      { path: 'tasks', Component: TasksScreen },
       { path: 'dashboard/*', Component: Dashboard },
+      { path: 'purchases', Component: PurchaseScreen },
+      { path: 'sites', Component: SitesScreen },
+      { path: 'open-products', Component: OpenProductsScreen },
 
       { path: 'reference-data/', Component: ReferenceData },
       {

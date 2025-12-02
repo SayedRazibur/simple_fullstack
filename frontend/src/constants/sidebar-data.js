@@ -15,6 +15,8 @@ import {
   IconShoppingCartPlus,
   IconBasketDollar,
   IconBrandReact,
+  IconPackage, // NEW for Open Products
+  IconBuildingStore, // NEW for Suppliers
 } from '@tabler/icons-react';
 
 export const getSidebarData = (isAdmin) => ({
@@ -29,23 +31,33 @@ export const getSidebarData = (isAdmin) => ({
       items: [
         { title: 'Today', url: '/dashboard', icon: IconCalendarWeek },
         { title: 'Reminders', url: '/reminder', icon: IconBell },
-        { title: 'Tasks', url: '/task', icon: IconListCheck },
+        { title: 'Tasks', url: '/tasks', icon: IconListCheck },
         { title: 'Orders', url: '/orders', icon: IconShoppingCartPlus },
+
         {
           title: 'Sites and Refill',
-          url: '/sites-and-refill',
+          url: '/sites',
           icon: IconMapPin,
         },
+
+        {
+          title: 'Open Products',
+          url: '/open-products',
+          icon: IconPackage, // FIXED
+        },
+
         {
           title: 'Purchases',
           url: '/purchases',
           icon: IconBasketDollar,
         },
+
         {
           title: 'Suppliers',
           url: '/suppliers',
-          icon: IconBasketDollar,
+          icon: IconBuildingStore, // FIXED (store/warehouse)
         },
+
         { title: 'Products', url: '/products', icon: IconShoppingBag },
         { title: 'CRM', url: '/crm', icon: IconUser },
         { title: 'Documents', url: '/documents', icon: IconFiles },
