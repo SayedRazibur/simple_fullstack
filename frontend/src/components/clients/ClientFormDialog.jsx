@@ -55,7 +55,6 @@ export default function ClientFormDialog({
             onChange={(e) =>
               setFormData({ ...formData, email: e.target.value })
             }
-            required
           />
           <Input
             placeholder="Phone"
@@ -63,7 +62,6 @@ export default function ClientFormDialog({
             onChange={(e) =>
               setFormData({ ...formData, phone: e.target.value })
             }
-            required
           />
           <Input
             placeholder="Address"
