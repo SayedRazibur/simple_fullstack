@@ -1,12 +1,14 @@
 import { z } from 'zod';
 
 const dateCoerce = () => z.coerce.date();
+const dayEnum = z.enum(['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN']);
 
 export const createPurchaseSchema = z.object({
   body: z.object({
     pickupId: z.coerce.number(),
     supplierId: z.coerce.number(),
-    date: dateCoerce(),
+    date: dateCoerce().optional(),
+    day: dayEnum.optional(),
     items: z
       .array(
         z.object({
@@ -25,6 +27,7 @@ export const updatePurchaseSchema = z.object({
     pickupId: z.coerce.number().optional(),
     supplierId: z.coerce.number().optional(),
     date: dateCoerce().optional(),
+    day: dayEnum.optional(),
     items: z
       .array(
         z.object({
@@ -50,9 +53,11 @@ export const deletePurchaseSchema = z.object({
 export const getAllPurchasesSchema = z.object({
   query: z.object({
     limit: z.coerce.number().min(1).max(100).default(10),
-    cursor: z.string().optional(),
+    page: z.coerce.number().min(1).default(1),
     pickupId: z.coerce.number().optional(),
     supplierId: z.coerce.number().optional(),
+    day: dayEnum.optional(),
+    date: z.string().optional(),
     search: z.string().optional(),
     sortBy: z.enum(['date', 'pickup', 'supplier']).optional(),
     order: z.enum(['asc', 'desc']).optional(),
