@@ -110,10 +110,11 @@ model Document {
   links      String[] @db.Text
 
   // Relations
-  reminders Reminder[]
-  orders    Order[]
-  products  Product[]
-  tasks     Task[]
+  reminders    Reminder[]
+  orders       Order[]
+  products     Product[]
+  tasks        Task[]
+  openProducts OpenProduct[]
 
   @@map("documents")
 }
@@ -185,7 +186,9 @@ model Product {
   tasks      Task[]
 
   // Relations (FK)
-  department Department @relation(fields: [departmentId], references: [id])
+  department       Department        @relation(fields: [departmentId], references: [id])
+  refill           Refill[]
+  openProductItems OpenProductItem[]
 
   @@map("products")
 }
@@ -215,8 +218,9 @@ model ProductBatch {
 // <=====================< Purchase >======================>
 
 model Purchase {
-  id   Int      @id @default(autoincrement())
-  date DateTime @db.Timestamptz
+  id   Int       @id @default(autoincrement())
+  date DateTime? @db.Timestamptz
+  day  Day?
 
   // FK
   pickupId   Int @map("pickup_id")
@@ -270,6 +274,55 @@ model Task {
   document Document? @relation(fields: [documentId], references: [id])
 
   @@map("tasks")
+}
+
+model Site {
+  id         Int    @id @default(autoincrement())
+  siteName   String @map("site_name")
+  day        Day
+  supervisor String
+
+  // Relations
+  refills      Refill[]
+  openProducts OpenProduct[]
+
+  @@map("sites")
+}
+
+model Refill {
+  id        Int @id @default(autoincrement())
+  siteId    Int
+  productId Int
+  quantity  Int
+
+  site    Site    @relation(fields: [siteId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id])
+
+  @@map("refills")
+}
+
+model OpenProduct {
+  id         Int      @id @default(autoincrement())
+  siteId     Int
+  documentId Int
+  createdAt  DateTime @default(now())
+
+  site     Site              @relation(fields: [siteId], references: [id])
+  products OpenProductItem[]
+  document Document          @relation(fields: [documentId], references: [id])
+
+  @@map("open_products")
+}
+
+model OpenProductItem {
+  id            Int @id @default(autoincrement())
+  productId     Int
+  openProductId Int
+
+  openProduct OpenProduct @relation(fields: [openProductId], references: [id], onDelete: Cascade)
+  product     Product     @relation(fields: [productId], references: [id])
+
+  @@map("open_product_items")
 }
 
 // <=======================< Reference Models >==========================>

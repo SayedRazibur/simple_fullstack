@@ -3,6 +3,8 @@ import prisma from '../../config/prisma.js';
 import ApiError from '../../utils/api.error.js';
 import catchAsync from '../../utils/catch.async.js';
 import { getSearchFilters } from '../../utils/filter.js';
+import { getOffsetPagination } from '../../utils/pagination.js';
+import { getSortOrder } from '../../utils/sort.js';
 import successResponse from '../../utils/success.response.js';
 
 const purchaseInclude = {
@@ -15,9 +17,15 @@ const purchaseInclude = {
 
 // CREATE PURCHASE
 export const createPurchase = catchAsync(async (req, res) => {
-  const { pickupId, supplierId, date, items } = req.validated.body;
+  const { pickupId, supplierId, date, day, items } = req.validated.body;
 
-  const data = { pickupId, supplierId, date };
+  const data = {
+    pickupId,
+    supplierId,
+    ...(date !== undefined && { date }),
+    ...(day !== undefined && { day }),
+  };
+
   if (items && items.length) {
     data.items = {
       create: items.map((it) => ({
@@ -113,41 +121,87 @@ export const deletePurchase = catchAsync(async (req, res) => {
 
 // GET ALL PURCHASES (cursor-based)
 export const getAllPurchases = catchAsync(async (req, res) => {
-  const { limit, cursor, pickupId, supplierId, sortBy, order } =
+  const { skip, limit, page } = getOffsetPagination(req.query);
+  const { pickupId, supplierId, sortBy, order, day, date } =
     req.validated.query;
 
   const where = getSearchFilters(req.validated.query, []);
   if (pickupId) where.pickupId = Number(pickupId);
   if (supplierId) where.supplierId = Number(supplierId);
 
-  if (cursor) where.date = { gt: cursor };
+  // Date filter - show purchases from selected date onwards
+  if (date) {
+    const selectedDate = new Date(date);
+    if (!isNaN(selectedDate)) {
+      const dateCondition = {
+        OR: [
+          { date: { gte: new Date(selectedDate.setHours(0, 0, 0, 0)) } },
+          { date: null },
+        ],
+      };
 
-  const primaryOrder = (() => {
-    const ord = order === 'desc' ? 'desc' : 'asc';
-    if (sortBy === 'pickup') return { pickup: { pickup: ord } };
-    if (sortBy === 'supplier') return { supplier: { name: ord } };
-    return { date: ord };
-  })();
+      if (Object.keys(where).length > 0) {
+        where.AND = where.AND || [];
+        where.AND.push(dateCondition);
+      } else {
+        Object.assign(where, dateCondition);
+      }
+    }
+  }
 
-  const purchases = await prisma.purchase.findMany({
-    where,
-    include: purchaseInclude,
-    orderBy: [primaryOrder, { id: 'asc' }],
-    take: limit + 1,
-  });
+  // Day filter - similar to Task logic
+  if (day) {
+    const dayCondition = {
+      OR: [
+        { day: day }, // Include day-based purchases
+        { day: null }, // Include date-based purchases (day is null)
+      ],
+    };
 
-  const hasMore = purchases.length > limit;
-  const records = hasMore ? purchases.slice(0, limit) : purchases;
-  const nextCursor =
-    hasMore && records.length ? records[records.length - 1].date : null;
+    if (Object.keys(where).length > 0) {
+      where.AND = where.AND || [];
+      where.AND.push(dayCondition);
+    } else {
+      Object.assign(where, dayCondition);
+    }
+  }
+
+  const primaryOrder =
+    sortBy === 'pickup'
+      ? { pickup: { pickup: order || 'asc' } }
+      : sortBy === 'supplier'
+        ? { supplier: { name: order || 'asc' } }
+        : { date: order || 'asc' };
+
+  const [purchases, total] = await prisma.$transaction([
+    prisma.purchase.findMany({
+      where,
+      include: purchaseInclude,
+      orderBy: [primaryOrder, { id: 'asc' }],
+      skip,
+      take: limit,
+    }),
+    prisma.purchase.count({ where }),
+  ]);
+
+  const totalPages = Math.ceil(total / limit);
+  const nextPage = page * limit < total ? page + 1 : null;
+  const prevPage = page > 1 ? page - 1 : null;
 
   successResponse({
     res,
     code: StatusCodes.OK,
     message: 'Purchases retrieved successfully',
     data: {
-      records,
-      pageInfo: { cursor: cursor ? cursor : null, nextCursor, limit, hasMore },
+      records: purchases,
+      pagination: {
+        total_records: total,
+        current_page: page,
+        total_pages: totalPages,
+        limit,
+        next_page: nextPage,
+        prev_page: prevPage,
+      },
     },
   });
 });
