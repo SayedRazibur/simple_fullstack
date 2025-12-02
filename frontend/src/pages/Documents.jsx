@@ -2,9 +2,16 @@ import { useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { toast } from 'sonner';
-import { ChevronDown, ChevronUp, Plus, Send, Check } from 'lucide-react';
+import {
+  ChevronDown,
+  ChevronUp,
+  Plus,
+  Send,
+  Check,
+  Trash2,
+} from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -25,6 +32,7 @@ import ConfirmDialog from '@/components/common/ConfirmDialog';
 import PaginationControls from '@/components/common/PaginationControls';
 import SortControl from '@/components/common/SortControl';
 import { useAuthStore } from '@/store/authStore';
+import { Badge } from '@/components/ui/badge';
 
 export default function DocumentScreen() {
   const { isAdmin } = useAuthStore();
@@ -444,82 +452,85 @@ export default function DocumentScreen() {
       </Dialog>
 
       {/* Documents List */}
-      <Card>
-        <CardHeader>
-          <CardTitle>
-            Documents ({pagination?.total_records || documents.length})
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="divide-y">
-          {documents.length === 0 ? (
-            <div className="text-center py-8 text-muted-foreground">
+      <div className="space-y-3">
+        {documents.length === 0 ? (
+          <Card>
+            <CardContent className="text-center py-8 text-muted-foreground">
               No documents found
-            </div>
-          ) : (
-            documents.map((doc) => {
+            </CardContent>
+          </Card>
+        ) : (
+          <Card className="divide-y gap-0">
+            {documents.map((doc) => {
               const isOpen = expanded === doc.id;
               return (
-                <div key={doc.id} className="py-3">
+                <div
+                  key={doc.id}
+                  className="overflow-hidden cursor-pointer hover:bg-muted px-2 mx-4 rounded-sm"
+                >
                   <div
-                    className="flex items-center justify-between cursor-pointer hover:bg-muted rounded-md p-2"
+                    className="p-4 flex items-center justify-between cursor-pointer"
                     onClick={() => setExpanded(isOpen ? null : doc.id)}
                   >
-                    <div className="flex gap-6 items-center">
-                      <span className="font-medium w-8">#{doc.id}</span>
-                      <span className="flex-1">{doc.title}</span>
-                      <span className="text-sm text-muted-foreground min-w-24">
-                        {doc.importedOn
-                          ? new Date(doc.importedOn).toLocaleDateString()
-                          : '—'}
-                      </span>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-3">
+                        <span className="font-medium w-8">#{doc.id}</span>
+                        <span className="font-semibold">{doc.title}</span>
+                        <Badge variant="outline" className="text-xs">
+                          {doc.importedOn
+                            ? new Date(doc.importedOn).toLocaleDateString()
+                            : 'No Date'}
+                        </Badge>
+                      </div>
                     </div>
-                    {isOpen ? (
-                      <ChevronUp className="w-4 h-4" />
-                    ) : (
-                      <ChevronDown className="w-4 h-4" />
-                    )}
+
+                    <div className="flex items-center gap-2">
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        className="text-cyan-600 cursor-pointer"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          openSendDialog(doc);
+                        }}
+                      >
+                        <Send className="w-4 h-4" />
+                      </Button>
+                      {isAdmin && (
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          className="text-destructive cursor-pointer"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleDelete(doc.id);
+                          }}
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </Button>
+                      )}
+                      {isOpen ? (
+                        <ChevronUp className="w-5 h-5" />
+                      ) : (
+                        <ChevronDown className="w-5 h-5" />
+                      )}
+                    </div>
                   </div>
 
                   {isOpen && (
-                    <div className="mt-3 p-3 bg-muted/40 rounded-lg relative">
-                      {/* Top corner buttons */}
-                      <div className="absolute right-3 top-3 flex gap-2">
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            openSendDialog(doc);
-                          }}
-                        >
-                          <Send className="w-4 h-4 mr-1" />
-                          Send
-                        </Button>
-
-                        {isAdmin && (
-                          <Button
-                            variant="destructive"
-                            size="sm"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              handleDelete(doc.id);
-                            }}
-                          >
-                            Delete
-                          </Button>
-                        )}
-                      </div>
-
+                    <div className="bg-muted/30 px-4 py-4 space-y-4">
                       {/* Content preview */}
-                      <div className="mt-10">
+                      <div>
                         {doc.url && doc.url.length > 0 ? (
-                          doc.url.map((url, index) => (
-                            <div key={index} className="mb-4">
-                              <FilePreview url={url} title={doc.title} />
-                            </div>
-                          ))
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            {doc.url.map((url, index) => (
+                              <div key={index}>
+                                <FilePreview url={url} title={doc.title} />
+                              </div>
+                            ))}
+                          </div>
                         ) : (
-                          <p className="text-muted-foreground">
+                          <p className="text-muted-foreground text-sm">
                             No files available
                           </p>
                         )}
@@ -528,10 +539,10 @@ export default function DocumentScreen() {
                   )}
                 </div>
               );
-            })
-          )}
-        </CardContent>
-      </Card>
+            })}
+          </Card>
+        )}
+      </div>
 
       {/* Pagination */}
       {pagination && (
